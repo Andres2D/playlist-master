@@ -4,7 +4,9 @@ import AuthLayout from '../../components/auth/auth';
 
 const Auth: NextPage = () => {
   return (
-    <AuthLayout />
+    <section className={styles.auth}>
+      <AuthLayout />
+    </section>
   );
 };
 

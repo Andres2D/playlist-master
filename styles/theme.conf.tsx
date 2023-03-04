@@ -10,7 +10,14 @@ const theme = extendTheme({
       },
     },
   },
+  fonts: {
+    heading: `'Josefin-sans', sans-serif`,
+    body: `'Josefin-sans', sans-serif`
+  },
   colors: {
+    whiteAlpha: {
+      500: '#FFF'
+    }
     // brand: {
     //   50: '#1C6758',
     //   500: '#4ECB71',

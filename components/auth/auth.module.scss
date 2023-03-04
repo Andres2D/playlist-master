@@ -1,0 +1,33 @@
+@import '../../styles/colors';
+
+.card {
+  border: 4px solid $white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10vh auto;
+  padding: 70px 50px;
+  max-width: 390px;
+  min-width: 250px;
+  width: 40%;
+
+  .logo {
+    margin-bottom: 30px;
+    width: 250px;
+  }
+
+  .facebookButton,
+  .googleButton {
+    width: 80%;
+  }
+
+  .facebookButton {
+    margin-top: 90px;
+    margin-bottom: 30px;
+  }
+
+  .googleButton {
+    color: black;
+  }
+}
