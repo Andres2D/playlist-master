@@ -16,7 +16,7 @@ describe('Auth', () => {
   it('Should render call to action buttons', () => {
     render(<AuthLayout />);
 
-    const facebookButton = screen.getByText('Facebook');
+    const facebookButton = screen.getByText('Faceboo');
     const googleButton = screen.getByText('Google');
 
     expect(facebookButton).toBeInTheDocument();
