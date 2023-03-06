@@ -1,11 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AuthLayout from './auth';
 
 describe('Auth', () => {
-  it('Should render logos', () => {
-    render(<AuthLayout />);
 
+  beforeEach(() => {
+    render(<AuthLayout />);
+  })
+
+  it('Should render logos', () => {
     const appLogo = screen.getByAltText('playlist-master'); 
     const spotifyLogo = screen.getByAltText('playlist-master'); 
 
@@ -13,13 +16,8 @@ describe('Auth', () => {
     expect(spotifyLogo).toBeInTheDocument();
   });
 
-  it('Should render call to action buttons', () => {
-    render(<AuthLayout />);
-
-    const facebookButton = screen.getByText('Facebook');
-    const googleButton = screen.getByText('Google');
-
-    expect(facebookButton).toBeInTheDocument();
-    expect(googleButton).toBeInTheDocument();
+  it('Should render call to action buttons', () => {    
+    const loginButton = screen.getByText('Login');
+    expect(loginButton).toBeInTheDocument();
   });
 })
