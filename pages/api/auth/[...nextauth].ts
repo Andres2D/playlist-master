@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import SpotifyProvider from "next-auth/providers/spotify";
+import { spotifyMongoAuth } from '../../../server/auth';
 
 export default NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -17,6 +18,23 @@ export default NextAuth({
         token.accessToken = account.refresh_token;
       }
       return token;
-    }
+    },
+    async signIn({account}) { 
+
+      if(!account!.access_token) {
+        return false
+      }
+
+      const userSigned = await spotifyMongoAuth(account?.access_token!);
+
+      if(!userSigned) {
+        return false;
+      }
+      
+      return true;
+    },
+    async redirect() {
+      return Promise.resolve('/menu');
+    },
   }
 });
