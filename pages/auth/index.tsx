@@ -1,14 +1,9 @@
 import { NextPage } from 'next';
-import styles from './auth.module.scss';
 import AuthLayout from '../../components/auth/auth';
 import { getSession } from 'next-auth/react';
 
 const Auth: NextPage = () => {
-  return (
-    <section className={styles.auth}>
-      <AuthLayout />
-    </section>
-  );
+  return <AuthLayout />;
 };
 
 export const getServerSideProps = async(context: any) => {

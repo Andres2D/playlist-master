@@ -1,6 +1,6 @@
-import { Avatar, Button } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import { useSession, signOut, getSession } from 'next-auth/react';
+import { useSession, getSession } from 'next-auth/react';
+import Navbar from '../../components/navbar/navbar';
 
 
 const Menu: NextPage = () => {
@@ -9,8 +9,10 @@ const Menu: NextPage = () => {
 
   return (
     <>
-      <Avatar name={session?.user?.name || ''} src={session?.user?.image || ''} />
-      <Button colorScheme='blue' onClick={() => signOut()}>Logout</Button>
+      <Navbar 
+        userName={session?.user?.name || ''}
+        image={session?.user?.image || ''}
+      />
     </>
   );
 };

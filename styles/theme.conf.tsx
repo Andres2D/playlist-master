@@ -17,6 +17,10 @@ const theme = extendTheme({
   colors: {
     whiteAlpha: {
       500: '#FFF'
+    },
+    brand: {
+      500: '#42D760',
+      600: '#26B543'
     }
     // brand: {
     //   50: '#1C6758',
