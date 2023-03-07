@@ -1,0 +1,77 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.section { 
+  margin: 5px auto;
+  max-width: 850px;
+  width: 80%;
+
+  .title {
+    text-align: center;
+    margin-bottom: 80px;
+    .user {
+      color: $spotify;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .action {
+      .smallIcon {
+        font-size: 100px;
+        width: 120px;
+        height: 120px;
+
+        .settings {
+          filter: drop-shadow(-7px 4px 0px $gray)
+        }
+        
+        .logout {
+          filter: drop-shadow(-7px 4px 0px $darkRed)
+        }
+      }
+    
+      .bigIcon {
+        transform: rotate(270deg);
+        font-size: 200px;
+        width: 220px;
+        height: 220px;
+
+        .play {
+          filter: drop-shadow(-7px 4px 0px $darkSpotify)
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $medium) {
+  .section { 
+    .actions { 
+      .action {
+        .smallIcon {
+          font-size: 80px;
+          width: 100px;
+          height: 100px;
+        }
+        .bigIcon {
+          font-size: 120px;
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $small) {
+  .section { 
+    .actions { 
+      flex-direction: column;
+      margin-bottom: 50px;
+    }
+  }
+}
