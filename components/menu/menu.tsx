@@ -3,12 +3,16 @@ import { NextPage } from 'next';
 import { signOut } from 'next-auth/react';
 import styles from './menu.module.scss';
 import { SettingsIcon, TriangleDownIcon, MoonIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/router';
 
 interface Props {
   userName: string;
 }
 
 const MenuLayout: NextPage<Props> = ({userName}) => {
+
+  const router = useRouter();
+
   return (
    <section className={styles.section}>
     <Heading 
@@ -37,7 +41,7 @@ const MenuLayout: NextPage<Props> = ({userName}) => {
           className={styles.bigIcon}
           rightIcon={<TriangleDownIcon color='brand.500' focusable className={styles.play} />}
           variant='unstyled'
-          onClick={() => console.log('play')}
+          onClick={() => router.push('/game')}
         />
         <Text fontSize='3xl' textAlign='center'>Play</Text>
       </div>
@@ -47,7 +51,7 @@ const MenuLayout: NextPage<Props> = ({userName}) => {
           className={styles.smallIcon}
           rightIcon={<MoonIcon color='red.300' focusable className={styles.logout} />}
           variant='unstyled'
-          onClick={() => console.log('logout')}
+          onClick={() => signOut()}
         />
         <Text fontSize='3xl' textAlign='center'>Logout</Text>
       </div>

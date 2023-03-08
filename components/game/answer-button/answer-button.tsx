@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { Button } from '@chakra-ui/react';
+import styles from './answer-button.module.scss';
 
 type ButtonStates = 'basic' | 'correct' | 'wrong';
 
@@ -30,6 +31,7 @@ const AnswerButton: NextPage<Props> = ({label, state, disabled}) => {
       colorScheme={backgroundColorMap[state]}
       fontSize='2xl' 
       isDisabled={disabled}
+      className={styles.button}
     >
       {label}
    </Button>
