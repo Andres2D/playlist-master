@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MenuLayout from './menu';
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
+
 const actions = ['Settings', 'Play', 'Logout'];
 
 describe('Auth', () => {
