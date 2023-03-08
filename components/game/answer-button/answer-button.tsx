@@ -1,26 +1,14 @@
 import { NextPage } from 'next';
 import { Button } from '@chakra-ui/react';
 import styles from './answer-button.module.scss';
-
-type ButtonStates = 'basic' | 'correct' | 'wrong';
+import { ButtonStates } from '../../../types/game.types';
+import { textColorMap, backgroundColorMap } from '../../../constants/game';
 
 interface Props {
   label: string;
   state: ButtonStates;
   disabled?: boolean;
 }
-
-const textColorMap = {
-  basic: 'black',
-  correct: 'white',
-  wrong: 'white'
-};
-
-const backgroundColorMap = {
-  basic: 'gray',
-  correct: 'green',
-  wrong: 'red'
-};
 
 const AnswerButton: NextPage<Props> = ({label, state, disabled}) => {
 

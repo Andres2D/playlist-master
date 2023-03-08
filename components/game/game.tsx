@@ -1,18 +1,9 @@
 import { NextPage } from 'next';
 import styles from './game.module.scss';
 import { Button, Heading } from '@chakra-ui/react';
-import AnswerButton from './answer-button/answer-button';
 import { useRouter } from 'next/router';
-
-const mockGameQuestion = {
-  lyrics: '"..And I was made a mercenary..."',
-  answers: [
-    'Evil - Mercyful Fate',
-    'Time’s Up - O.C',
-    'Walk - Pantera',
-    'Call me - 90sFlav'
-  ]
-};
+import AnswerButton from './answer-button/answer-button';
+import { mockGameQuestion } from '../../mock/game.mock';
 
 const GameLayout: NextPage = () => {
 
