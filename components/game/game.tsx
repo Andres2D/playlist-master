@@ -15,7 +15,7 @@ const GameLayout: NextPage = () => {
 
   return (
    <section className={styles.section}>
-    <Heading size='3xl' textAlign='center'>{mockGameQuestion.lyrics}</Heading>
+    <Heading size='3xl' textAlign='center' data-testid='lyrics'>{mockGameQuestion.lyrics}</Heading>
     <div className={styles.answers}>
       {answersMap}
     </div>
@@ -32,7 +32,6 @@ const GameLayout: NextPage = () => {
         color='white' 
         w='40' 
         colorScheme='green'
-        onClick={() => console.log('cliked')}
         isDisabled
       >
         Next

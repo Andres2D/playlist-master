@@ -20,6 +20,7 @@ const AnswerButton: NextPage<Props> = ({label, state, disabled}) => {
       fontSize='2xl' 
       isDisabled={disabled}
       className={styles.button}
+      data-testid='answerOption'
     >
       {label}
    </Button>
