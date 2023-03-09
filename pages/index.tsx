@@ -11,7 +11,7 @@ export const getServerSideProps = async(context: any) => {
 
   return {
     redirect: {
-      destination: session ? '/menu' : '/auth',
+      destination: session ? '/menu' : '/intro',
       permanent: false
     }
   }
