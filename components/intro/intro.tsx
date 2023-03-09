@@ -11,7 +11,6 @@ const IntroLayout: NextPage = () => {
     <div
     className={styles.home}
       style={{
-        backgroundColor: 'teal',
         width: '100%',
         height: '100vh',
       }}

@@ -20,4 +20,4 @@ describe('Auth', () => {
     const loginButton = screen.getByText('Sign up');
     expect(loginButton).toBeInTheDocument();
   });
-})
+});

@@ -13,10 +13,8 @@ const AuthLayout: NextPage = () => {
     <div
       className={styles.home}
       style={{
-        backgroundColor: 'teal',
         width: '100%',
-        height: '100vh',
-        objectFit:'cover',
+        height: '100vh'
       }}
     >
       <Image

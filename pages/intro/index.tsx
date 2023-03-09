@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import IntroLayout from '../../components/intro/intro';
 
-const intro: NextPage = () => {
+const Intro: NextPage = () => {
 
   return (
     <IntroLayout />
   );
 };
 
-export default intro;
+export default Intro;

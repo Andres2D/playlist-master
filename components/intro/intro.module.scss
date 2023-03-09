@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: teal;
 }
 
 .logo {
@@ -13,6 +14,6 @@
 }
 
 .version {
-  color: #123837;
+  color: $darkTeal;
   opacity: 0.5;
 }

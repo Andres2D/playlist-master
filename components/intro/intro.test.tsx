@@ -17,4 +17,4 @@ describe('Intro', () => {
     const appLogo = screen.getByAltText('playlist-master'); 
     expect(appLogo).toBeInTheDocument();
   });
-})
+});
