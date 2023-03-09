@@ -1,17 +1,11 @@
-.section {
-  margin: 5px auto;
-  max-width: 850px;
-  width: 80%;
+.answers {
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto;
+  width: 60%;
+}
 
-  .answers {
-    display: flex;
-    flex-direction: column;
-    margin: 30px auto;
-    width: 60%;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: space-evenly;
-  }
+.actions {
+  display: flex;
+  justify-content: space-evenly;
 }
