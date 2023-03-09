@@ -8,16 +8,8 @@ describe('Intro', () => {
     render(<IntroLayout />);
   })
 
-  it('Should render logos', () => {
+  it('Should render logo playlist ,aster', () => {
     const appLogo = screen.getByAltText('playlist-master'); 
-    const spotifyLogo = screen.getByAltText('playlist-master'); 
-
     expect(appLogo).toBeInTheDocument();
-    expect(spotifyLogo).toBeInTheDocument();
-  });
-
-  it('Should render call to action buttons', () => {    
-    const loginButton = screen.getByText('Login');
-    expect(loginButton).toBeInTheDocument();
   });
 })

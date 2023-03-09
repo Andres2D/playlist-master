@@ -10,14 +10,14 @@ describe('Auth', () => {
 
   it('Should render logos', () => {
     const appLogo = screen.getByAltText('playlist-master'); 
-    const spotifyLogo = screen.getByAltText('playlist-master'); 
+    const connectionLogo = screen.getByAltText('connection'); 
 
     expect(appLogo).toBeInTheDocument();
-    expect(spotifyLogo).toBeInTheDocument();
+    expect(connectionLogo).toBeInTheDocument();
   });
 
   it('Should render call to action buttons', () => {    
-    const loginButton = screen.getByText('Login');
+    const loginButton = screen.getByText('Sign up');
     expect(loginButton).toBeInTheDocument();
   });
 })
