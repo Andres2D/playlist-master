@@ -1,11 +1,7 @@
 import {
   Button,
   Image,
-  Text,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
+  ButtonGroup
 } from '@chakra-ui/react';
 import { FaSpotify } from 'react-icons/fa';
 import { NextPage } from 'next';

@@ -1,4 +1,4 @@
-import { Button, Image } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import styles from './intro.module.scss';
