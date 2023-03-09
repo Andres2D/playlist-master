@@ -1,8 +1,4 @@
-import {
-  Button,
-  Image,
-  ButtonGroup
-} from '@chakra-ui/react';
+import { Button, Image, ButtonGroup } from '@chakra-ui/react';
 import { FaSpotify } from 'react-icons/fa';
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
@@ -10,13 +6,7 @@ import styles from './auth.module.scss';
 
 const AuthLayout: NextPage = () => {
   return (
-    <div
-      className={styles.home}
-      style={{
-        width: '100%',
-        height: '100vh'
-      }}
-    >
+    <div className={styles.home}>
       <Image
         className={styles.logo}
         src="/images/connection.svg"
@@ -30,9 +20,9 @@ const AuthLayout: NextPage = () => {
 
       <ButtonGroup>
         <Button
-        style={{
-          backgroundColor: '#123837'
-        }}
+          size="lg"
+          colorScheme="spotify"
+          className={styles.btnSignIn}
           leftIcon={<FaSpotify />}
           onClick={() => signIn('spotify_user')}
         >
