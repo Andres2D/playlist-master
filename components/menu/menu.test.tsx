@@ -6,18 +6,20 @@ jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-const actions = ['Settings', 'Play', 'Logout'];
+const actions = ['Play'];
 
-describe('Auth', () => {
+describe('Menu', () => {
 
   beforeEach(() => {
     render(<MenuLayout userName='test' />);
   })
 
-  it('Should render message', () => {
-    const message = screen.getByTestId('message');
-    expect(message).toBeInTheDocument();
-    expect(message.textContent?.trim()).toBe('Hey test, Ready to play?'.trim());
+  it('Should render logos', () => {
+    const appLogo = screen.getByAltText('playlist-master'); 
+    const appMenuSVG = screen.getByAltText('menu'); 
+
+    expect(appLogo).toBeInTheDocument();
+    expect(appMenuSVG).toBeInTheDocument();
   });
 
   it('Should render button actions', () => {
