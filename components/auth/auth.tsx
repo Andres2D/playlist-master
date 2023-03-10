@@ -1,27 +1,34 @@
-import { Button, Image } from '@chakra-ui/react';
+import { Button, Image, ButtonGroup } from '@chakra-ui/react';
+import { FaSpotify } from 'react-icons/fa';
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
 import styles from './auth.module.scss';
 
 const AuthLayout: NextPage = () => {
   return (
-    <div className={styles.card}>
-      <Image 
+    <div className={styles.home}>
+      <Image
         className={styles.logo}
-        src='/images/logo.png' 
-        alt='playlist-master' 
+        src="/images/connection.svg"
+        alt="connection"
       />
-      <Image 
+      <Image
         className={styles.logo}
-        src='/images/spotify.svg' 
-        alt='spotify' 
+        src="/images/logo.png"
+        alt="playlist-master"
       />
-      <Button 
-        className={styles.loginButton}
-        colorScheme='blackAlpha'
-        onClick={() => signIn('spotify_user')}>
-          Login
-      </Button>
+
+      <ButtonGroup>
+        <Button
+          size="lg"
+          colorScheme="spotify"
+          className={styles.btnSignIn}
+          leftIcon={<FaSpotify />}
+          onClick={() => signIn('spotify_user')}
+        >
+          Sign up
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };
