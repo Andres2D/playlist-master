@@ -14,6 +14,7 @@ export interface LyricGame {
 }
 
 export interface LyricsGameState {
-  game: LyricGame[];
+  playlist: LyricGame[];
+  playlistName: string;
   currentSong: number;
 }

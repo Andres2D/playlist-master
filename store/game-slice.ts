@@ -2,13 +2,21 @@ import { createSlice, CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { LyricsGameState, LyricGame } from '../interfaces/game';
 
 export const initialState: LyricsGameState = {
-  game: [],
+  playlist: [],
+  playlistName: '',
   currentSong: 0
 };
 
-const setMatchState: CaseReducer<LyricsGameState, PayloadAction<LyricGame[]>> = 
-  (state: LyricsGameState, action: PayloadAction<LyricGame[]>) => {
-    state.game = action.payload;
+interface SetGamePayload {
+  playlist: LyricGame[],
+  playlistName: string;
+}
+
+const setMatchState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> = 
+  (state: LyricsGameState, action: PayloadAction<SetGamePayload>) => {
+    const { playlist, playlistName } = action.payload;
+    state.playlist = playlist;
+    state.playlistName = playlistName;
 }
 
 const nextGame: CaseReducer<LyricsGameState, PayloadAction> = 
