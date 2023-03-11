@@ -32,11 +32,13 @@ export default NextAuth({
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
+      session.expires = token.expires;
       return session;
     },
     async jwt({token, account}) {
       if (account) {
         token.accessToken = account.access_token;
+        token.expires = account.expires_at;
       }
       return token;
     },

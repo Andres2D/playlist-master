@@ -10,6 +10,7 @@ export interface LyricGame {
   isrcId: string;
   musxmatchId: number;
   lyrics: string;
+  trackName: string;
   answers: string[];
 }
 
