@@ -13,12 +13,6 @@ export default NextAuth({
     })  
   ], 
   callbacks: {
-    async jwt({token, account}) {
-      if (account) {
-        token.accessToken = account.refresh_token;
-      }
-      return token;
-    },
     async signIn({account}) { 
 
       if(!account!.access_token) {
@@ -35,6 +29,16 @@ export default NextAuth({
     },
     async redirect() {
       return Promise.resolve('/menu');
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
+    async jwt({token, account}) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
     },
   }
 });
