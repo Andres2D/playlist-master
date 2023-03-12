@@ -5,12 +5,12 @@ export interface AnswerButtonState {
 };
 
 export interface LyricGame {
-  name: string;
-  spotifyId: string;
-  isrcId: string;
-  musxmatchId: number;
-  lyrics: string;
-  answers: string[];
+  name?: string;
+  spotifyId?: string;
+  isrcId?: string;
+  musxmatchId?: number;
+  lyrics?: string;
+  answers?: string[];
 }
 
 export interface LyricsGameState {
