@@ -5,7 +5,7 @@ const theme = extendTheme({
     global: {
       'html, body': {
         lineHeight: 'tall',
-        bg: '#000000',
+        bg: 'teal',
         color: '#FFF'
       },
     },
