@@ -12,7 +12,7 @@ interface SetGamePayload {
   playlistName: string;
 }
 
-const setMatchState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> = 
+const setGameState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> = 
   (state: LyricsGameState, action: PayloadAction<SetGamePayload>) => {
     const { playlist, playlistName } = action.payload;
     state.playlist = playlist;
@@ -28,7 +28,7 @@ const gameSlice = createSlice({
   name: 'gameSlice',
   initialState,
   reducers: {
-    setMatchState,
+    setGameState,
     nextGame
   }
 });

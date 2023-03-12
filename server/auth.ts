@@ -5,7 +5,7 @@ export const spotifyMongoAuth = async(access_token: string): Promise<boolean | n
   try {
     let user;
 
-    const response = await fetch('https://api.spotify.com/v1/me', {
+    const response = await fetch(`${process.env.SPOTIFY_BASE_API}/me`, {
       headers: {
         'Authorization': `Bearer ${access_token}`
       }
