@@ -1,3 +1,5 @@
+@import '../../styles/breakpoints';
+
 .answers {
   display: flex;
   flex-direction: column;
@@ -8,4 +10,21 @@
 .actions {
   display: flex;
   justify-content: space-evenly;
+}
+
+@media (max-width: $medium) {
+  .lyrics {
+    font-size: 35px !important;
+  }
+  
+  .answers {
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  .actions {
+    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
 }

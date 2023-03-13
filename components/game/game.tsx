@@ -14,15 +14,22 @@ const GameLayout: NextPage = () => {
   );
 
   return (
-   <section className={styles.section}>
-    <Heading size='3xl' textAlign='center' data-testid='lyrics'>{mockGameQuestion.lyrics}</Heading>
+   <>
+    <Heading 
+      size='3xl' 
+      textAlign='center' 
+      data-testid='lyrics'
+      mb='5'
+      className={styles.lyrics}>
+        {mockGameQuestion.lyrics}
+    </Heading>
     <div className={styles.answers}>
       {answersMap}
     </div>
     <div className={styles.actions}>
       <Button 
         color='white' 
-        w='40' 
+        w='40'
         colorScheme='red'
         onClick={() => router.push('/menu')}
       >
@@ -31,13 +38,14 @@ const GameLayout: NextPage = () => {
       <Button 
         color='white' 
         w='40' 
+        mb='5'
         colorScheme='green'
         isDisabled
       >
         Next
       </Button>
     </div>
-   </section>
+   </>
   );
 };
 
