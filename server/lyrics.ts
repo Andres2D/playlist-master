@@ -5,7 +5,6 @@ import { LyricGame } from '../interfaces/game';
 export const getLyricsByISRC = async(isrc: string): Promise<null | LyricGame> => {
   try {
     const trackId = await getTrackInformation(isrc);
-
     if(!trackId) {
       return null;
     }
@@ -14,7 +13,7 @@ export const getLyricsByISRC = async(isrc: string): Promise<null | LyricGame> =>
       return null;
     }
     return {
-      musxmatchId: trackId,
+      musxmatchId: trackId!,
       lyrics: trackLyrics
     };
   } catch(err) {

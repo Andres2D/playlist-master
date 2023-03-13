@@ -26,7 +26,7 @@ const Auth: NextPage<Props> = ({playlist}) => {
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  const playlist = await getPlaylistGame(session?.accessToken, 5);
+  const playlist = await getPlaylistGame(session?.accessToken, 25);
   if(!session || !playlist) {
     return {
       redirect: {
