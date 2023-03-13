@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
 import GameLayout from '../../components/game/game';
-import { getLikedSongsPlaylist } from '../../server/playlist';
+import { getPlaylistGame } from '../../server/playlist';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { gameSlicesActions } from '../../store/game-slice';
@@ -26,7 +26,7 @@ const Auth: NextPage<Props> = ({playlist}) => {
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  const playlist = await getLikedSongsPlaylist(session?.accessToken, 5);
+  const playlist = await getPlaylistGame(session?.accessToken, 5);
   if(!session || !playlist) {
     return {
       redirect: {
