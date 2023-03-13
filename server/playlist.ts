@@ -1,6 +1,7 @@
 import { SpotifyPlaylist } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
+import { getRandomTracks } from '../helpers/game';
 
 export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
   try {
@@ -12,6 +13,11 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
     
     playlist = await Promise.all(playlist.map(async track => {
       const trackDetails = await getLyricsByISRC(track.isrcId!);
+      if(!trackDetails) {
+        return {
+          ...track
+        };
+      }
       return {
         ...track,
         musxmatchId: trackDetails?.musxmatchId,
@@ -19,10 +25,17 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
       };
     }));
 
-    return playlist;
+    playlist = playlist.map(track => {
+      const answers = getRandomTracks(playlist!.map(t => t.name!).filter(t => t !== track.name!));
+      return {
+        ...track,
+        answers
+      }
+    });
+
+    return playlist.filter(track => track.lyrics !== undefined);
 
   } catch(err) {
-    console.log(err);
     return null;
   }
 };
