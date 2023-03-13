@@ -1,5 +1,31 @@
 import { SpotifyPlaylist } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
+import { getLyricsByISRC } from './lyrics';
+
+export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
+  try {
+    let playlist = await getLikedSongsPlaylist(accessToken, limit);
+
+    if(!playlist) {
+      return null;
+    }
+    
+    playlist = await Promise.all(playlist.map(async track => {
+      const trackDetails = await getLyricsByISRC(track.isrcId!);
+      return {
+        ...track,
+        musxmatchId: trackDetails?.musxmatchId,
+        lyrics: trackDetails?.lyrics
+      };
+    }));
+
+    return playlist;
+
+  } catch(err) {
+    console.log(err);
+    return null;
+  }
+};
 
 export const getLikedSongsPlaylist = 
   async(accessToken: string, limit: number = 5): Promise<LyricGame[] | null> => {
