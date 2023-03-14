@@ -3,13 +3,12 @@
 .navigator {
   display: flex;
   justify-content: flex-end;
-  background-color: teal;
 }
 
 .profile {
   border: 4px solid $gray;
   cursor: pointer;
-  margin: 3%;
+  margin: 5%;
 }
 
 .title {
