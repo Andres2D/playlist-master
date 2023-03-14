@@ -14,7 +14,7 @@ const AnswerButton: NextPage<Props> = ({label, state, disabled}) => {
 
   return (
    <Button 
-      m='5' 
+      mb='5' 
       color={textColorMap[state]}
       colorScheme={backgroundColorMap[state]}
       fontSize='2xl' 
