@@ -40,7 +40,7 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
         onClose={onClose}
       >
         <DrawerOverlay />
-        <DrawerContent background='darkgrey'>
+        <DrawerContent background='teal'>
           <DrawerCloseButton />
           <DrawerBody 
             display='flex' 
@@ -49,13 +49,25 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
           >
             <Avatar 
               marginTop='20'
+              mb='10'
               className={styles.profile}
               name={userName}
               borderColor='blackAlpha'
-              size='2xl'
+              size='xl'
               src={image}
             />
-            <Heading className={styles.title} color='black' textAlign='center' mb='10' size='3xl'>{userName}</Heading>
+            <Heading color='white' textAlign='center' mb='5' size='md'>Hola</Heading>
+            <Heading color='ghostwhite' textAlign='center' mb='10' size='md'>{userName}</Heading>
+            <Button 
+              size='lg' 
+              className={styles.actions} 
+              rightIcon={<TriangleDownIcon 
+              className={styles.play} />} 
+              colorScheme='brand'
+              variant='solid'
+            >
+              Play
+            </Button>
             <Button 
               size='lg' 
               className={styles.actions} 
@@ -64,17 +76,6 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
               variant='solid'
             >
               Settings
-            </Button>
-            <Button 
-              size='lg' 
-              className={styles.actions} 
-              rightIcon={<TriangleDownIcon 
-              className={styles.play} />} 
-              colorScheme='brand' 
-              color='black' 
-              variant='solid'
-            >
-              Play
             </Button>
             <Button 
               size='lg' 
