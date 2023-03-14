@@ -2,9 +2,6 @@
 
 .button {
   box-shadow: 1px 9px 7px rgb(243 241 241 / 25%);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 @media (max-width: $medium) {
