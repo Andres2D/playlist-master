@@ -26,7 +26,7 @@ const Auth: NextPage<Props> = ({playlist}) => {
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  const playlist = await getPlaylistGame(session?.accessToken, 25);
+  let playlist = await getPlaylistGame(session?.accessToken, 25);
   if(!session || !playlist) {
     return {
       redirect: {
@@ -35,7 +35,9 @@ export const getServerSideProps = async(context: any) => {
       }
     }
   }
-
+  
+  playlist = playlist.sort(() => 0.5 - Math.random());
+  
   return {
     props: { 
       session,
