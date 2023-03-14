@@ -21,6 +21,9 @@ const setGameState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> 
 
 const nextGame: CaseReducer<LyricsGameState, PayloadAction> = 
   (state: LyricsGameState, action: PayloadAction) => {
+    if(state.currentSong + 1  === state.playlist.length) {
+      return;
+    }
     state.currentSong = state.currentSong + 1;
 }
 
