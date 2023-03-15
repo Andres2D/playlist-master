@@ -48,7 +48,7 @@ const GameLayout: NextPage = () => {
 
   const getLyrics = (lyrics: string) => {
     if (lyrics.length < 351) {
-      return `"${lyrics}.."`;
+      return `"${lyrics} ..."`;
     }
     return `"${lyrics.substring(0, 350)} ..."`;
   };

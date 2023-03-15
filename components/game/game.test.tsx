@@ -38,7 +38,7 @@ describe('GameLayout', () => {
   it('Should render partial lyrics', () => {
     const headerElement = screen.getByTestId('lyrics');
     expect(headerElement).toBeInTheDocument();
-    expect(headerElement.textContent).toBe(mockGameQuestion.lyrics);
+    expect(headerElement.textContent).toBe(`"${mockGameQuestion.lyrics} ..."`);
   });
 
   it('Should render the answers list', () => {
