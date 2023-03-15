@@ -2,6 +2,7 @@ import { SpotifyPlaylist } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
+import { MUSIXMATCH_COPYRIGHT } from '../constants/game';
 
 export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
   try {
@@ -18,15 +19,20 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
           ...track
         };
       }
+
+      const lyricsReplaced = trackDetails?.lyrics?.replace(MUSIXMATCH_COPYRIGHT, '');
+
       return {
         ...track,
         musxmatchId: trackDetails?.musxmatchId,
-        lyrics: trackDetails?.lyrics
+        lyrics: lyricsReplaced
       };
     }));
 
     playlist = playlist.map(track => {
-      const answers = getRandomTracks(playlist!.map(t => t.name!).filter(t => t !== track.name!));
+      const answers = 
+        [...getRandomTracks(playlist!.map(t => t.name!).filter(t => t !== track.name!)), track.name!]
+        .sort(() => 0.5 - Math.random());
       return {
         ...track,
         answers

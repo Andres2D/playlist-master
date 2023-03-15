@@ -11,3 +11,5 @@ export const backgroundColorMap: AnswerButtonState = {
   correct: 'green',
   wrong: 'red'
 };
+
+export const MUSIXMATCH_COPYRIGHT = '******* This Lyrics is NOT for Commercial use *******\n(1409623199341)';

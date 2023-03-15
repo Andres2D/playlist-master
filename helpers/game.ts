@@ -1,4 +1,9 @@
 export const getRandomTracks = (trackNames: string[]): string[] => {
-  const shuffled = trackNames.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, 3);
+  for (let i = trackNames.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = trackNames[i];
+    trackNames[i] = trackNames[j];
+    trackNames[j] = temp;
+  }
+  return trackNames.slice(0, 3);
 };
