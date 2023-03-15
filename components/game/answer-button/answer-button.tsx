@@ -8,7 +8,7 @@ interface Props {
   label: string;
   state: ButtonStates;
   onClick: (answer: string) => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const AnswerButton: NextPage<Props> = ({label, state, onClick, disabled = false}) => {
