@@ -34,7 +34,7 @@ const GameLayout: NextPage = () => {
     setAnswerSelected(undefined);
   };
 
-  const getButtonState = (answer: any): ButtonStates => {
+  const getButtonState = (answer: string): ButtonStates => {
     if (!answerSelected) {
       return 'basic';
     }
@@ -50,7 +50,7 @@ const GameLayout: NextPage = () => {
     if (lyrics.length < 351) {
       return `"${lyrics} ..."`;
     }
-    return `"${lyrics.substring(0, 350)} ..."`;
+    return `"${lyrics.slice(0, 350)} ..."`;
   };
 
   const answersMap = currentTrack?.answers?.map((answer) => (
@@ -74,7 +74,6 @@ const GameLayout: NextPage = () => {
         data-testid="lyrics"
         mb="5"
         opacity="0.7"
-        className={styles.lyrics}
       >
         {getLyrics(gameState.playlist[gameState.currentSong].lyrics)}
       </Heading>
