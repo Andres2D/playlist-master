@@ -25,7 +25,8 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
       return {
         ...track,
         musxmatchId: trackDetails?.musxmatchId,
-        lyrics: lyricsReplaced
+        lyrics: lyricsReplaced,
+        state: 'unknown'
       };
     }));
 
@@ -35,7 +36,7 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
         .sort(() => 0.5 - Math.random());
       return {
         ...track,
-        answers
+        answers,
       }
     });
 
