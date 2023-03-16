@@ -7,7 +7,7 @@ import styles from './game.module.scss';
 import AnswerButton from './answer-button/answer-button';
 import { RootState } from '../../interfaces/state';
 import { gameSlicesActions } from '../../store/game-slice';
-import { ButtonStates } from '../../types/game.types';
+import { ButtonStates, QuestionState } from '../../types/game.types';
 
 const GameLayout: NextPage = () => {
 
@@ -21,6 +21,12 @@ const GameLayout: NextPage = () => {
   };
 
   const currentTrack = gameState.playlist[gameState.currentSong];
+
+  const handleAnswerSelection = (answer: string) => {
+    const questionState: QuestionState = answer === currentTrack.name ? 'correct' : 'wrong'; 
+    setAnswerSelected(answer);
+    dispatch(gameSlicesActions.setQuestionState({ spotifyId: currentTrack.spotifyId!, questionState }));
+  };
 
   const handleNextTrack = () => {
     dispatch(gameSlicesActions.nextGame());
@@ -43,7 +49,7 @@ const GameLayout: NextPage = () => {
       label={answer}
       state={getButtonState(answer)}
       disabled={Boolean(answerSelected)}
-      onClick={(answer) => setAnswerSelected(answer)}
+      onClick={handleAnswerSelection}
     />
   )
 
