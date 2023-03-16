@@ -1,46 +1,6 @@
 import store from './index';
 import { gameSlicesActions, initialState } from './game-slice';
-import { mockGameQuestion } from '../mock/game.mock';
-import { LyricsGameState } from '../interfaces/game';
-
-const newState: LyricsGameState = {
-  playlist: [
-   {
-     isrcId: '1',
-     lyrics: mockGameQuestion.lyrics,
-     answers: mockGameQuestion.answers,
-     musxmatchId: 1,
-     name: 'Evil - Mercyful Fate',
-     spotifyId: '1'
-   },
-   {
-    isrcId: '1',
-    lyrics: mockGameQuestion.lyrics,
-    answers: mockGameQuestion.answers,
-    musxmatchId: 1,
-    name: 'Evil - Mercyful Fate',
-    spotifyId: '1'
-  },
-  {
-    isrcId: '1',
-    lyrics: mockGameQuestion.lyrics,
-    answers: mockGameQuestion.answers,
-    musxmatchId: 1,
-    name: 'Evil - Mercyful Fate',
-    spotifyId: '1'
-  },
-  {
-    isrcId: '1',
-    lyrics: mockGameQuestion.lyrics,
-    answers: mockGameQuestion.answers,
-    musxmatchId: 1,
-    name: 'Evil - Mercyful Fate',
-    spotifyId: '1'
-  }
-  ],
-  currentSong: 0,
-  playlistName: 'Liked Songs'
- };
+import { newStateMock } from '../mock/game.mock';
 
 describe('Game redux state', () => {
   it('Should get initial state', () => {
@@ -48,8 +8,8 @@ describe('Game redux state', () => {
   });
 
   it('Should return new state', () => {
-    store.dispatch(gameSlicesActions.setGameState(newState));
-    expect(store.getState().game).toEqual(newState);
+    store.dispatch(gameSlicesActions.setGameState(newStateMock));
+    expect(store.getState().game).toEqual(newStateMock);
   });
 
   it('Should get new song', () => {
@@ -63,5 +23,10 @@ describe('Game redux state', () => {
     store.dispatch(gameSlicesActions.nextGame());
     store.dispatch(gameSlicesActions.nextGame());
     expect(store.getState().game.currentSong).toBe(3);
+  });
+
+  it('Should update the question state', () => {
+    store.dispatch(gameSlicesActions.setQuestionState({spotifyId: '1', questionState: 'correct'}));
+    expect(store.getState().game.playlist[0].state).toBe('correct');
   });
 });

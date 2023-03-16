@@ -1,5 +1,6 @@
 import { createSlice, CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { LyricsGameState, LyricGame } from '../interfaces/game';
+import { QuestionState } from '../types/game.types';
 
 export const initialState: LyricsGameState = {
   playlist: [],
@@ -10,6 +11,11 @@ export const initialState: LyricsGameState = {
 interface SetGamePayload {
   playlist: LyricGame[],
   playlistName: string;
+}
+
+interface QuestionStatePayload {
+  spotifyId: string;
+  questionState: QuestionState;
 }
 
 const setGameState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> = 
@@ -27,12 +33,19 @@ const nextGame: CaseReducer<LyricsGameState, PayloadAction> =
     state.currentSong = state.currentSong + 1;
 }
 
+const setQuestionState: CaseReducer<LyricsGameState, PayloadAction<QuestionStatePayload>> =
+  (state: LyricsGameState, action: PayloadAction<QuestionStatePayload>) => {
+    const { spotifyId, questionState } = action.payload;
+    state.playlist[state.playlist.findIndex(track => track.spotifyId === spotifyId)].state = questionState;
+};
+
 const gameSlice = createSlice({
   name: 'gameSlice',
   initialState,
   reducers: {
     setGameState,
-    nextGame
+    nextGame,
+    setQuestionState
   }
 });
 

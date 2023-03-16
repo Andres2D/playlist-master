@@ -1,3 +1,4 @@
+import { LyricsGameState } from '../interfaces/game';
 export const mockGameQuestion = {
   lyrics: '"..And I was made a mercenary..."',
   answers: [
@@ -158,3 +159,46 @@ export const musixmatchGetLyricsResponseMock: any = {
     },
   },
 };
+
+export const newStateMock: LyricsGameState = {
+  playlist: [
+   {
+     isrcId: '1',
+     lyrics: mockGameQuestion.lyrics,
+     answers: mockGameQuestion.answers,
+     musxmatchId: 1,
+     name: 'Evil - Mercyful Fate',
+     spotifyId: '1',
+     state: 'unknown'
+   },
+   {
+    isrcId: '1',
+    lyrics: mockGameQuestion.lyrics,
+    answers: mockGameQuestion.answers,
+    musxmatchId: 1,
+    name: 'Evil - Mercyful Fate',
+    spotifyId: '2',
+    state: 'unknown'
+  },
+  {
+    isrcId: '1',
+    lyrics: mockGameQuestion.lyrics,
+    answers: mockGameQuestion.answers,
+    musxmatchId: 1,
+    name: 'Evil - Mercyful Fate',
+    spotifyId: '3',
+    state: 'unknown'
+  },
+  {
+    isrcId: '1',
+    lyrics: mockGameQuestion.lyrics,
+    answers: mockGameQuestion.answers,
+    musxmatchId: 1,
+    name: 'Evil - Mercyful Fate',
+    spotifyId: '4',
+    state: 'unknown'
+  }
+  ],
+  currentSong: 0,
+  playlistName: 'Liked Songs'
+ };

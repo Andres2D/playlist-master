@@ -1,3 +1,4 @@
+import { QuestionState } from '../types/game.types';
 export interface AnswerButtonState {
   basic: string;
   correct: string;
@@ -11,6 +12,7 @@ export interface LyricGame {
   musxmatchId?: number;
   lyrics?: string;
   answers?: string[];
+  state?: QuestionState;
 }
 
 export interface LyricsGameState {
