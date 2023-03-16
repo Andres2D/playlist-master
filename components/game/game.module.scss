@@ -13,9 +13,6 @@
 }
 
 @media (max-width: $medium) {
-  .lyrics {
-    font-size: 35px !important;
-  }
   
   .answers {
     margin: 10px auto;
@@ -25,6 +22,5 @@
   .actions {
     align-items: center;
     flex-direction: column-reverse;
-    justify-content: center;
   }
 }
