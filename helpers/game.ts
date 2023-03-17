@@ -1,9 +1,18 @@
 export const getRandomTracks = (trackNames: string[]): string[] => {
-  for (let i = trackNames.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = trackNames[i];
-    trackNames[i] = trackNames[j];
-    trackNames[j] = temp;
+  const randomPositions: number[] = [];
+
+  while(randomPositions.length < 3) {
+    const pos = Math.floor(Math.random() * (trackNames.length - 1));
+    if(!randomPositions.includes(pos)) {
+      randomPositions.push(pos);
+    }
   }
-  return trackNames.slice(0, 3);
+
+  const [first, second, third] = randomPositions;
+
+  return [
+    trackNames[first],
+    trackNames[second],
+    trackNames[third]
+  ];
 };
