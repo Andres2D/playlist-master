@@ -3,6 +3,7 @@ import { FaSpotify } from 'react-icons/fa';
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
 import styles from './auth.module.scss';
+import RequestAccess from '../request-access/request-access';
 
 const AuthLayout: NextPage = () => {
   return (
@@ -29,6 +30,7 @@ const AuthLayout: NextPage = () => {
           Sign up
         </Button>
       </ButtonGroup>
+      <RequestAccess />
     </div>
   );
 };
