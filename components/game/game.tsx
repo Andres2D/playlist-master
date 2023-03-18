@@ -18,7 +18,13 @@ const GameLayout: NextPage = () => {
   );
 
   if (gameState.playlist.length === 0) {
-    return <p>Loading ...</p>;
+    return (
+      <Heading>{
+        `You don't have any liked song :(.
+          Please like at least 20 songs in
+         your spotify app to star playing this game.`}
+      </Heading>
+    )
   }
 
   const currentTrack = gameState.playlist[gameState.currentSong];
@@ -75,7 +81,7 @@ const GameLayout: NextPage = () => {
         mb="5"
         opacity="0.7"
       >
-        {getLyrics(gameState.playlist[gameState.currentSong].lyrics)}
+        {getLyrics(gameState.playlist[gameState.currentSong].lyrics!)}
       </Heading>
       <div className={styles.answers}>{answersMap}</div>
       <div className={styles.actions}>
