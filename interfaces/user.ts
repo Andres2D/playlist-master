@@ -3,3 +3,9 @@ export interface User {
   userName: string;
   image: string;
 };
+
+export interface Access {
+  _id?: string;
+  email: string;
+  accessGranted?: boolean;
+};
