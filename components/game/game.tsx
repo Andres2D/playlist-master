@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './game.module.scss';
 import AnswerButton from './answer-button/answer-button';
 import { RootState } from '../../interfaces/state';
-import { gameSlicesActions } from '../../store/game-slice';
+import { gameSlicesActions, initialState } from '../../store/game-slice';
 import { ButtonStates, QuestionState } from '../../types/game.types';
 
 const GameLayout: NextPage = () => {
@@ -38,6 +38,11 @@ const GameLayout: NextPage = () => {
   const handleNextTrack = () => {
     dispatch(gameSlicesActions.nextGame());
     setAnswerSelected(undefined);
+  };
+
+  const handleEndGame = () => {
+    router.push('/menu');
+    dispatch(gameSlicesActions.setGameState(initialState));
   };
 
   const getButtonState = (answer: string): ButtonStates => {
@@ -72,7 +77,10 @@ const GameLayout: NextPage = () => {
   return (
     <>
       <Heading textAlign="right" size="xl" mb={2}>
-        {`${gameState.currentSong + 1}/${gameState.playlist.length + 1}`}
+        {gameState.playlistName}
+      </Heading>
+      <Heading textAlign="right" size="xl" mb={2}>
+        {`${gameState.currentSong + 1}/${gameState.playlist.length}`}
       </Heading>
       <Heading
         size="md"
@@ -89,7 +97,7 @@ const GameLayout: NextPage = () => {
           color="white"
           w="40"
           colorScheme="red"
-          onClick={() => router.push('/menu')}
+          onClick={handleEndGame}
         >
           End Game
         </Button>
