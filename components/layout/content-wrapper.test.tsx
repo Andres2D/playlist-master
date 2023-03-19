@@ -17,6 +17,11 @@ jest.mock("next-auth/react", () => {
   };
 });
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
+
+
 describe('ContentWrapper', () => {
   beforeEach(() => {
     render(

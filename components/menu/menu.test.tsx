@@ -11,7 +11,7 @@ const actions = ['Play'];
 describe('Menu', () => {
 
   beforeEach(() => {
-    render(<MenuLayout userName='test' />);
+    render(<MenuLayout/>);
   })
 
   it('Should render logos', () => {
