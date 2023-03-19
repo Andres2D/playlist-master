@@ -32,7 +32,7 @@ const Auth: NextPage<Props> = ({playlist}) => {
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  let playlist = await getPlaylistGame(session?.accessToken, 25);
+  let playlist = await getPlaylistGame(session?.accessToken, Number(process.env.LIMIT_SONGS) || 10);
   if(!session || !playlist) {
     return {
       redirect: {

@@ -13,7 +13,7 @@ const IntroLayout: NextPage = () => {
         src="/images/logo.png"
         alt="playlist-master"
       />
-      <span className={styles.version}>V0.0.1</span>
+      <span className={styles.version}>{process.env.NEXT_PUBLIC_APP_VERSION}</span>
     </div>
   );
 };
