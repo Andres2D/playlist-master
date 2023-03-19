@@ -17,7 +17,7 @@ describe('Auth', () => {
   });
 
   it('Should render call to action buttons', () => {    
-    const loginButton = screen.getByText('Sign up');
+    const loginButton = screen.getByText('Login');
     expect(loginButton).toBeInTheDocument();
   });
 });

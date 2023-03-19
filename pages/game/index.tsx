@@ -2,10 +2,12 @@ import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
 import GameLayout from '../../components/game/game';
 import { getPlaylistGame } from '../../server/playlist';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { gameSlicesActions } from '../../store/game-slice';
 import { LyricGame } from '../../interfaces/game';
+import Metadata from '../../components/meta/metadata';
+import { RootState } from '../../interfaces/state';
 
 interface Props {
   playlist: LyricGame[];
@@ -14,19 +16,23 @@ interface Props {
 const Auth: NextPage<Props> = ({playlist}) => {
 
   const dispatch = useDispatch();
+  const gameState = useSelector((state: RootState) => state.game);
 
   useEffect(() => {
     dispatch(gameSlicesActions.setGameState({playlist, playlistName: 'Liked songs'}));
   }, [dispatch, playlist]);
   
   return (
-    <GameLayout />
+    <>
+      <Metadata title={`Game | ${gameState.playlistName}`}/>
+      <GameLayout />
+    </>
   );
 };
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  let playlist = await getPlaylistGame(session?.accessToken, 25);
+  let playlist = await getPlaylistGame(session?.accessToken, Number(process.env.LIMIT_SONGS) || 10);
   if(!session || !playlist) {
     return {
       redirect: {

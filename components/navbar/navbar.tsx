@@ -8,10 +8,15 @@ import {
   useDisclosure, 
   Heading
 } from '@chakra-ui/react';
-import { SettingsIcon, TriangleDownIcon, MoonIcon } from '@chakra-ui/icons';
+import { 
+  TriangleDownIcon, 
+  MoonIcon, 
+  HamburgerIcon 
+} from '@chakra-ui/icons';
 import { Button } from '@chakra-ui/react';
 import { signOut } from 'next-auth/react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import styles from './navbar.module.scss';
 
 interface Props {
@@ -21,6 +26,19 @@ interface Props {
 
 const Navbar: NextPage<Props> = ({userName, image}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const handlePlayAction = () => {
+    if(router.pathname === '/menu') {
+      router.push('/game');
+    }
+    onClose();
+  };
+
+  const handleMenuAction = () => {
+    router.push('/menu');
+    onClose();
+  };
 
   return (
     <>
@@ -64,6 +82,7 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
               rightIcon={<TriangleDownIcon 
               className={styles.play} />} 
               colorScheme='brand'
+              onClick={handlePlayAction}
               variant='solid'
             >
               Play
@@ -71,11 +90,12 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
             <Button 
               size='lg' 
               className={styles.actions} 
-              rightIcon={<SettingsIcon />} 
-              colorScheme='blackAlpha' 
+              rightIcon={<HamburgerIcon />} 
+              colorScheme='blackAlpha'
+              onClick={handleMenuAction}
               variant='solid'
             >
-              Settings
+              Menu
             </Button>
             <Button 
               size='lg' 

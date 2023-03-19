@@ -8,7 +8,12 @@ const props = {
   image:'https://bit.ly/kent-c-dodds'
 };
 
-const actions = ['Settings', 'Play', 'Logout'];
+const actions = ['Menu', 'Play', 'Logout'];
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
+
 
 describe('Navbar', () => {
   beforeEach(() => {
