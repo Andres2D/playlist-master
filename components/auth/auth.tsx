@@ -27,7 +27,7 @@ const AuthLayout: NextPage = () => {
           leftIcon={<FaSpotify />}
           onClick={() => signIn('spotify_user')}
         >
-          Sign up
+          Login
         </Button>
       </ButtonGroup>
       <RequestAccess />

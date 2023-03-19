@@ -7,7 +7,7 @@ const Auth: NextPage = () => {
   return (
     <>
       <Metadata title='Auth | Playlist Master' description='Login to the app' />
-      <AuthLayout />;
+      <AuthLayout />
     </>
   )
 };
