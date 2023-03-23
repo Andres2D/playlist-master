@@ -1,31 +1,47 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SummaryLayout from './summary';
+import { mockGameQuestion } from '../../mock/game.mock';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import gameSliceMock from '../../store/game-slice.mock';
+
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-const actions = ['Play'];
+const createTestStore = () => {
+  const store = configureStore({
+    reducer: {
+      game: gameSliceMock
+    }
+  });
+  return store;
+};
 
-describe('Menu', () => {
 
+describe('SummaryLayout', () => {
+  let fakeStore: any;
   beforeEach(() => {
-    render(<SummaryLayout/>);
+    fakeStore = createTestStore();
   })
 
-  it('Should render logos', () => {
-    const appLogo = screen.getByAltText('playlist-master'); 
-    const completedSVG = screen.getByAltText('completed'); 
-
-    expect(appLogo).toBeInTheDocument();
-    expect(completedSVG).toBeInTheDocument();
+  beforeEach(() => {
+    render(
+      <Provider store={fakeStore}>
+        <SummaryLayout />;
+      </Provider>
+    );
   });
 
-  it('Should render button actions', () => {
-    actions.forEach(action => {
-      const buttonAction = screen.getByText(action);
-      expect(buttonAction).toBeInTheDocument();
-    });
+  it('Should render image svg', () => {
+    const appSvg = screen.getByAltText('completed'); 
+    expect(appSvg).toBeInTheDocument();
+  });
+
+  it('Should render action buttons', () => {
+    const endGameElement = screen.getByText('End Game');
+    expect(endGameElement).toBeInTheDocument();
   });
 });
