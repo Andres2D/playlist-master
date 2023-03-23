@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
-import GameLayout from '../../components/game/game';
+import SummaryLayout from '../../components/summary/summary';
 import { getPlaylistGame } from '../../server/playlist';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -13,19 +13,12 @@ interface Props {
   playlist: LyricGame[];
 }
 
-const Auth: NextPage<Props> = ({playlist}) => {
-
-  const dispatch = useDispatch();
-  const gameState = useSelector((state: RootState) => state.game);
-
-  useEffect(() => {
-    dispatch(gameSlicesActions.setGameState({playlist, playlistName: 'Liked songs', currentSong: 0}));
-  }, [dispatch, playlist]);
+const Summary: NextPage<Props> = () => {
   
   return (
     <>
-      <Metadata title={`Game | ${gameState.playlistName}`}/>
-      <GameLayout />
+      <Metadata title={`Summary`}/>
+      <SummaryLayout />
     </>
   );
 };
@@ -42,8 +35,6 @@ export const getServerSideProps = async(context: any) => {
     }
   }
   
-  playlist = playlist.sort(() => 0.5 - Math.random());
-  
   return {
     props: { 
       session,
@@ -52,4 +43,4 @@ export const getServerSideProps = async(context: any) => {
   }
 };
 
-export default Auth;
+export default Summary;

@@ -11,6 +11,7 @@ export const initialState: LyricsGameState = {
 interface SetGamePayload {
   playlist: LyricGame[],
   playlistName: string;
+  currentSong: number;
 }
 
 interface QuestionStatePayload {
@@ -20,9 +21,10 @@ interface QuestionStatePayload {
 
 const setGameState: CaseReducer<LyricsGameState, PayloadAction<SetGamePayload>> = 
   (state: LyricsGameState, action: PayloadAction<SetGamePayload>) => {
-    const { playlist, playlistName } = action.payload;
+    const { playlist, playlistName, currentSong } = action.payload;
     state.playlist = playlist;
     state.playlistName = playlistName;
+    state.currentSong = currentSong;
 }
 
 const nextGame: CaseReducer<LyricsGameState, PayloadAction> = 

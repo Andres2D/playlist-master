@@ -36,6 +36,9 @@ const GameLayout: NextPage = () => {
   };
 
   const handleNextTrack = () => {
+    if (gameState.currentSong + 1 === gameState.playlist.length) {
+      router.push('/summary');
+    }
     dispatch(gameSlicesActions.nextGame());
     setAnswerSelected(undefined);
   };
