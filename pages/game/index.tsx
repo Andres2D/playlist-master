@@ -19,7 +19,7 @@ const Auth: NextPage<Props> = ({playlist}) => {
   const gameState = useSelector((state: RootState) => state.game);
 
   useEffect(() => {
-    dispatch(gameSlicesActions.setGameState({playlist, playlistName: 'Liked songs'}));
+    dispatch(gameSlicesActions.setGameState({playlist, playlistName: 'Liked songs', currentSong: 0}));
   }, [dispatch, playlist]);
   
   return (

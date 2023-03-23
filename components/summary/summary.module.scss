@@ -1,0 +1,19 @@
+@import '../../styles/colors';
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  .logo {
+    margin-bottom: 30px;
+    width: 250px;
+  }
+  
+  .btnEndGame{
+    background-color: $darkTeal;
+  }
+}
