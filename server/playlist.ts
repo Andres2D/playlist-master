@@ -20,8 +20,8 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
         };
       }
 
-      const lyricsReplaced = trackDetails?.lyrics?.replace(MUSIXMATCH_COPYRIGHT, '');
-
+      const lyricsReplaced = trackDetails?.lyrics?.replace(MUSIXMATCH_COPYRIGHT, '').replace(/\n/gm, '</br>');
+      
       return {
         ...track,
         musxmatchId: trackDetails?.musxmatchId,

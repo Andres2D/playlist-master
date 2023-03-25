@@ -87,12 +87,12 @@ const GameLayout: NextPage = () => {
       </Heading>
       <Heading
         size="md"
-        textAlign="justify"
+        textAlign="center"
         data-testid="lyrics"
         mb="5"
         opacity="0.7"
+        dangerouslySetInnerHTML={{ __html: getLyrics(gameState.playlist[gameState.currentSong].lyrics!)}}
       >
-        {getLyrics(gameState.playlist[gameState.currentSong].lyrics!)}
       </Heading>
       <div className={styles.answers}>{answersMap}</div>
       <div className={styles.actions}>
