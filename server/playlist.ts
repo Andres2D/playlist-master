@@ -3,7 +3,6 @@ import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
 import { MUSIXMATCH_COPYRIGHT } from '../constants/game';
-import Playlist from '../pages/playlist/index';
 
 export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
   try {
