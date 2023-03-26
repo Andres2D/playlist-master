@@ -1,8 +1,9 @@
-import { SpotifyPlaylist } from '../interfaces/playlist';
+import { SpotifyPlaylist, PlaylistSelection, UserPlaylist } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
 import { MUSIXMATCH_COPYRIGHT } from '../constants/game';
+import Playlist from '../pages/playlist/index';
 
 export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
   try {
@@ -79,3 +80,35 @@ export const getLikedSongsPlaylist =
     return null;
   }
 };
+
+export const getUserPlaylist = async(accessToken: string, limit: number): Promise<null | PlaylistSelection[]> => {
+  try {
+    let playlists: PlaylistSelection[] = [];
+    const response = await fetch(
+      `${process.env.SPOTIFY_BASE_API}/me/playlists?limit=${limit}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      }
+    );
+    if(!response.ok) {
+      return null;
+    }
+    const { items } = await response.json() as UserPlaylist;
+
+    playlists = items.map(playlist => {
+      return {
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description,
+        image: playlist.images[0].url
+      }
+    });
+
+    return playlists;
+  }catch(err) {
+    console.error(err);
+    return null;
+  }
+}
