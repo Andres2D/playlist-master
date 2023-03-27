@@ -7,9 +7,10 @@ import {
   CardFooter, 
   Button 
 } from '@chakra-ui/react';
-import styles from './playlist-card.module.scss';
+import { useRouter } from 'next/router';
 import { FaMusic } from 'react-icons/fa';
 import { NextPage } from 'next';
+import styles from './playlist-card.module.scss';
 import { PlaylistSelection } from '../../../interfaces/playlist';
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const PlaylistCard: NextPage<Props> = ({playlist}) => {
+  const route = useRouter();
 
   return (
     <Card maxW='sm' colorScheme={'facebook'}>
@@ -36,7 +38,7 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
           w='100%' 
           colorScheme={'brand'} 
           leftIcon={<FaMusic />}
-          onClick={() => console.log(playlist.id)}
+          onClick={() => route.push(`game/${playlist.id}`)}
         >
           Play
         </Button>

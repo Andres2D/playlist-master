@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import styles from './playlists.module.scss';
-import { useRouter } from 'next/router';
 import { PlaylistSelection } from '../../interfaces/playlist';
 import PlaylistCard from '../game/playlist-card/playlist-card';
 
@@ -8,9 +7,7 @@ interface Props {
   playlists: PlaylistSelection[];
 }
 
-
 const PlaylistLayout: NextPage<Props> = ({playlists}) => {
-  const router = useRouter();
   
   const playlistsMap = playlists.map(playlist => {
     return <PlaylistCard key={playlist.id} playlist={playlist} />
