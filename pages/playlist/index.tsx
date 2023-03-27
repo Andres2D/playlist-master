@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 import Metadata from '../../components/meta/metadata';
 import { getUserPlaylist } from '../../server/playlist';
 import { PlaylistSelection } from '../../interfaces/playlist';
+import PlaylistLayout from '../../components/playlists/playlists';
 
 interface Props {
   playlists: PlaylistSelection[]
@@ -13,7 +14,7 @@ const Playlist: NextPage<Props> = ({playlists}) => {
   return (
     <>
       <Metadata title='Playlist | Playlist Master' description='Select the playlist to play' />
-      <p>test</p>
+      <PlaylistLayout playlists={playlists} />
     </>
   );
 };
