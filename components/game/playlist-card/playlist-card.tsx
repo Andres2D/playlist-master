@@ -31,7 +31,13 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
           dangerouslySetInnerHTML={{ __html: playlist.description}} />
       </CardBody>
       <CardFooter>
-        <Button variant='solid' w='100%' colorScheme={'brand'} leftIcon={<FaMusic />}>
+        <Button 
+          variant='solid' 
+          w='100%' 
+          colorScheme={'brand'} 
+          leftIcon={<FaMusic />}
+          onClick={() => console.log(playlist.id)}
+        >
           Play
         </Button>
       </CardFooter>

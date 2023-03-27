@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import styles from './playlists.module.scss';
 import { useRouter } from 'next/router';
 import { PlaylistSelection } from '../../interfaces/playlist';
-import PlaylistCard from '../../pages/playlist/playlist-card/playlist-card';
+import PlaylistCard from '../game/playlist-card/playlist-card';
 
 interface Props {
   playlists: PlaylistSelection[];

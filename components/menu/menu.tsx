@@ -22,7 +22,7 @@ const MenuLayout: NextPage = () => {
         className={styles.btnPlay}
         colorScheme="play"
         leftIcon={<FaMusic />}
-        onClick={() => router.push('/playlist')}
+        onClick={() => router.push('/game')}
       >
         Play
       </Button>
