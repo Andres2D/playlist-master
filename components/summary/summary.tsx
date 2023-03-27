@@ -20,7 +20,7 @@ const SummaryLayout: NextPage = () => {
 
   const handleEndGame = () => {
     dispatch(gameSlicesActions.setGameState(initialState));
-    router.push('/menu');
+    router.push('/game');
   };
 
   return (
