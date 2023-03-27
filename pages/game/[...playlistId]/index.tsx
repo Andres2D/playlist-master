@@ -10,17 +10,18 @@ import Metadata from '../../../components/meta/metadata';
 import { RootState } from '../../../interfaces/state';
 
 interface Props {
+  playlistName: string;
   playlist: LyricGame[];
 }
 
-const Auth: NextPage<Props> = ({playlist}) => {
+const Auth: NextPage<Props> = ({playlist, playlistName}) => {
 
   const dispatch = useDispatch();
   const gameState = useSelector((state: RootState) => state.game);
 
   useEffect(() => {
-    dispatch(gameSlicesActions.setGameState({playlist, playlistName: 'Liked songs', currentSong: 0}));
-  }, [dispatch, playlist]);
+    dispatch(gameSlicesActions.setGameState({playlist, playlistName, currentSong: 0}));
+  }, [dispatch, playlist, playlistName]);
   
   return (
     <>
@@ -31,9 +32,10 @@ const Auth: NextPage<Props> = ({playlist}) => {
 };
 
 export const getServerSideProps = async(context: any) => {
+  const { playlistId } = context.query;
   const session = await getSession({req: context.req});
-  let playlist = await getPlaylistGame(session?.accessToken, Number(process.env.LIMIT_SONGS) || 10);
-  if(!session || !playlist) {
+  let playlistGame = await getPlaylistGame(playlistId, session?.accessToken, Number(process.env.LIMIT_SONGS) || 10);
+  if(!session || !playlistGame || !playlistGame.playlist || playlistGame.playlist.length === 0) {
     return {
       redirect: {
         destination: '/auth',
@@ -42,12 +44,13 @@ export const getServerSideProps = async(context: any) => {
     }
   }
   
-  playlist = playlist.sort(() => 0.5 - Math.random());
+  const playlist = playlistGame.playlist.sort(() => 0.5 - Math.random());
   
   return {
     props: { 
       session,
-      playlist
+      playlist,
+      playlistName: playlistGame.playlistName
     }
   }
 };
