@@ -95,15 +95,18 @@ export const getUserPlaylist = async(accessToken: string, limit: number): Promis
       return null;
     }
     const { items } = await response.json() as UserPlaylist;
-
+    
     playlists = items.map(playlist => {
       return {
         id: playlist.id,
         name: playlist.name,
         description: playlist.description,
-        image: playlist.images[0].url
+        image: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : '',
+        tracks: playlist.tracks.total
       }
     });
+
+    playlists = playlists.filter(playlist => playlist.tracks > 0);
 
     return playlists;
   }catch(err) {
