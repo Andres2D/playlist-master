@@ -2,7 +2,7 @@ import { SpotifyPlaylist, PlaylistSelection, UserPlaylist, UserPlaylistItem } fr
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
-import { MUSIXMATCH_COPYRIGHT } from '../constants/game';
+import { MUSIXMATCH_COPYRIGHT, likedSongsPlaylist } from '../constants/game';
 
 interface PlaylistGame {
   playlistName: string;
@@ -120,6 +120,7 @@ export const getUserPlaylist = async(accessToken: string, limit: number): Promis
     });
 
     playlists = playlists.filter(playlist => playlist.tracks > 0);
+    playlists.push(likedSongsPlaylist);
 
     return playlists;
   }catch(err) {

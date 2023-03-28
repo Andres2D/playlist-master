@@ -28,8 +28,9 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
           alt={playlist.name}
           borderRadius='lg'
         />
-        <Heading size='md'>{playlist.name}</Heading>
+        <Heading size='md' mt='2'>{playlist.name}</Heading>
         <Text
+          mt='2'
           dangerouslySetInnerHTML={{ __html: playlist.description}} />
       </CardBody>
       <CardFooter>
