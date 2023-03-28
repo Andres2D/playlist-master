@@ -1,11 +1,18 @@
-export interface SpotifyPlaylist {
+interface BaseResponse {
   href:     string;
-  items:    PlaylistItem[];
   limit:    number;
   next:     string;
   offset:   number;
   previous: null;
   total:    number;
+}
+
+export interface UserPlaylist extends BaseResponse {
+  items:    UserPlaylistItem[];
+}
+
+export interface SpotifyPlaylist extends BaseResponse {
+  items:    PlaylistItem[];
 }
 
 export interface PlaylistItem {
@@ -91,4 +98,55 @@ export interface ExternalIDS {
 
 export enum TrackType {
   Track = "track",
+}
+
+export interface UserPlaylistItem {
+  collaborative: boolean;
+  description:   string;
+  external_urls: ExternalUrls;
+  href:          string;
+  id:            string;
+  images:        Image[];
+  name:          string;
+  owner:         Owner;
+  primary_color: null;
+  public:        boolean;
+  snapshot_id:   string;
+  tracks:        Tracks;
+  type:          ItemType;
+  uri:           string;
+}
+
+export interface ExternalUrls {
+  spotify: string;
+}
+
+export interface Owner {
+  display_name:  string;
+  external_urls: ExternalUrls;
+  href:          string;
+  id:            string;
+  type:          OwnerType;
+  uri:           string;
+}
+
+export enum OwnerType {
+  User = "user",
+}
+
+export interface Tracks {
+  href:  string;
+  total: number;
+}
+
+export enum ItemType {
+  Playlist = "playlist",
+}
+
+export interface PlaylistSelection {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  tracks: number;
 }

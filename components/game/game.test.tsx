@@ -5,6 +5,7 @@ import { mockGameQuestion } from '../../mock/game.mock';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import gameSliceMock from '../../store/game-slice.mock';
+import { gameMockEmptySlice } from '../../store/game-slice.mock';
 
 
 jest.mock('next/router', () => ({
@@ -19,6 +20,16 @@ const createTestStore = () => {
   });
   return store;
 };
+
+const createEmptyTestStore = () => {
+  const store = configureStore({
+    reducer: {
+      game: gameMockEmptySlice.reducer
+    }
+  });
+  return store;
+};
+
 
 
 describe('GameLayout', () => {
@@ -52,4 +63,25 @@ describe('GameLayout', () => {
     expect(endGameElement).toBeInTheDocument();
     expect(nextElement).toBeInTheDocument();
   });
+});
+
+describe('Empty state game', () => {
+  let fakeStore: any;
+  beforeEach(() => {
+    fakeStore = createEmptyTestStore();
+  })
+
+  beforeEach(() => {
+    render(
+      <Provider store={fakeStore}>
+        <GameLayout />;
+      </Provider>
+    );
+  });
+
+  it('Should render loading message', () => {
+    const loadingMessage = screen.getByText('Loading ...');
+    expect(loadingMessage).toBeInTheDocument();
+  })
+
 });

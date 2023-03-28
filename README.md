@@ -8,7 +8,7 @@
 </h3>
 
 ![build](https://img.shields.io/circleci/build/github/Andres2D/playlist-master/main)
-![coverage](https://img.shields.io/badge/coverage-66%25-yellowgreen)
+![coverage](https://img.shields.io/badge/coverage-68%25-yellowgreen)
 ![languages](https://img.shields.io/github/languages/count/Andres2D/playlist-master)
 ![issues](https://img.shields.io/github/issues/Andres2D/playlist-master)
 ![version](https://img.shields.io/github/v/release/Andres2D/playlist-master)

@@ -1,13 +1,22 @@
-import { SpotifyPlaylist } from '../interfaces/playlist';
+import { SpotifyPlaylist, PlaylistSelection, UserPlaylist, UserPlaylistItem } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
-import { MUSIXMATCH_COPYRIGHT } from '../constants/game';
+import { MUSIXMATCH_COPYRIGHT, likedSongsPlaylist } from '../constants/game';
 
-export const getPlaylistGame = async(accessToken: string, limit: number): Promise<null | LyricGame[]> => {
+interface PlaylistGame {
+  playlistName: string;
+  playlist: LyricGame[];
+}
+
+export const getPlaylistGame = async(playlistId: string, accessToken: string, limit: number): Promise<null | PlaylistGame> => {
   try {
-    let playlist = await getLikedSongsPlaylist(accessToken, limit);
-
+    const isLikedSongs = playlistId === 'liked-songs';
+    let playlist = await getPlaylist(accessToken, limit, isLikedSongs, playlistId);
+    let playlistName = isLikedSongs 
+      ? 'Liked Songs'
+      : await getPlaylistDetails(playlistId, accessToken) || '';
+      
     if(!playlist) {
       return null;
     }
@@ -40,19 +49,23 @@ export const getPlaylistGame = async(accessToken: string, limit: number): Promis
       }
     });
 
-    return playlist.filter(track => track.lyrics !== undefined);
+    return {
+      playlistName: isLikedSongs ? 'Liked songs' : playlistName,
+      playlist: playlist.filter(track => track.lyrics !== undefined)
+    }
 
   } catch(err) {
     return null;
   }
 };
 
-export const getLikedSongsPlaylist = 
-  async(accessToken: string, limit: number = 5): Promise<LyricGame[] | null> => {
+export const getPlaylist = 
+  async(accessToken: string, limit: number = 5, isLikedSongs: boolean = false, playlistId: string = ''): Promise<LyricGame[] | null> => {
   try {
     let tracks: LyricGame[] = [];
+    const path = isLikedSongs ? '/me/tracks' : `/playlists/${playlistId}/tracks`;
     const response = await fetch(
-      `${process.env.SPOTIFY_BASE_API}/me/tracks?limit=${limit}`,
+      `${process.env.SPOTIFY_BASE_API}${path}?limit=${limit}`,
       {
         headers: {
           'Authorization': `Bearer ${accessToken}`
@@ -76,6 +89,66 @@ export const getLikedSongsPlaylist =
 
   } catch(err) {
     console.error(err);
+    return null;
+  }
+};
+
+export const getUserPlaylist = async(accessToken: string, limit: number): Promise<null | PlaylistSelection[]> => {
+  try {
+    let playlists: PlaylistSelection[] = [];
+    const response = await fetch(
+      `${process.env.SPOTIFY_BASE_API}/me/playlists?limit=${limit}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      }
+    );
+    if(!response.ok) {
+      return null;
+    }
+    const { items } = await response.json() as UserPlaylist;
+    
+    playlists = items.map(playlist => {
+      return {
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description,
+        image: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : '',
+        tracks: playlist.tracks.total
+      }
+    });
+
+    playlists = playlists.filter(playlist => playlist.tracks > 0);
+    playlists.push(likedSongsPlaylist);
+
+    return playlists;
+  }catch(err) {
+    console.error(err);
+    return null;
+  }
+}
+
+const getPlaylistDetails = async(playlistId: string, accessToken: string): Promise<string | null> => {
+  try {
+    const response = await fetch(
+      `${process.env.SPOTIFY_BASE_API}/playlists/${playlistId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      }
+    );
+    if(!response.ok) {
+      return null;
+    }
+
+    const { name } = await response.json() as UserPlaylistItem;
+
+    return name;
+
+  } catch(err) {
+    console.log(err);
     return null;
   }
 };

@@ -19,10 +19,8 @@ const GameLayout: NextPage = () => {
 
   if (gameState.playlist.length === 0) {
     return (
-      <Heading>{
-        `You don't have any liked song :(.
-          Please like at least 20 songs in
-         your spotify app to star playing this game.`}
+      <Heading>
+        Loading ...
       </Heading>
     )
   }
@@ -44,7 +42,7 @@ const GameLayout: NextPage = () => {
   };
 
   const handleEndGame = () => {
-    router.push('/menu');
+    router.push('/game');
     dispatch(gameSlicesActions.setGameState(initialState));
   };
 
