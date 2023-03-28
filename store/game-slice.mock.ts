@@ -21,6 +21,12 @@ export const initialState: LyricsGameState = {
   currentSong: 0
 };
 
+const initialEmptyState: LyricsGameState = {
+  playlist: [],
+  playlistName: '',
+  currentSong: 0
+};
+
 interface SetGamePayload {
   playlist: LyricGame[],
   playlistName: string;
@@ -37,6 +43,15 @@ const nextGame: CaseReducer<LyricsGameState, PayloadAction> =
 const gameMockSlice = createSlice({
   name: 'gameSlice',
   initialState,
+  reducers: {
+    setGameState,
+    nextGame
+  }
+});
+
+export const gameMockEmptySlice = createSlice({
+  name: 'gameSliceEmpty',
+  initialState: initialEmptyState,
   reducers: {
     setGameState,
     nextGame
