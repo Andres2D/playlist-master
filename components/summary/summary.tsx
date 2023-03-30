@@ -48,10 +48,10 @@ const SummaryLayout: NextPage = () => {
 
   return (
     <div className={styles.home}>
-      <Heading lineHeight="taller" size="lg" textAlign='center'>
+      <Heading lineHeight="taller" size="lg" textAlign='center' color='White'>
         { gameState.playlistName }
       </Heading>
-      <Heading lineHeight="taller" size="lg" m={6} textAlign='center'>
+      <Heading lineHeight="taller" size="lg" m={6} textAlign='center' color='White'>
         { correct > wrong ? 'Well done /,,/' : 'Could be better :/'}
       </Heading>
       <CircularProgress value={percentage} size='150px' color='green.400'>
@@ -89,9 +89,10 @@ const SummaryLayout: NextPage = () => {
         <Button
           size="lg"
           className={styles.btnEndGame}
-          colorScheme="play"
+          colorScheme="blackAlpha"
           m={2} 
           onClick={handleEndGame}
+          color='White'
         >
           End Game
         </Button>

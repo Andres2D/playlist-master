@@ -2,13 +2,13 @@ import { AnswerButtonState } from '../interfaces/game';
 import { PlaylistSelection } from '../interfaces/playlist';
 
 export const textColorMap: AnswerButtonState = {
-  basic: 'black',
+  basic: 'blackAlpha',
   correct: 'white',
   wrong: 'white'
 };
 
 export const backgroundColorMap: AnswerButtonState = {
-  basic: 'gray',
+  basic: 'blackTeal',
   correct: 'green',
   wrong: 'red'
 };

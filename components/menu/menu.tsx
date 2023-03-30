@@ -28,7 +28,7 @@ const MenuLayout: NextPage = () => {
       <Button
         size="lg"
         className={styles.btnPlay}
-        colorScheme="play"
+        colorScheme='blackAlpha'
         leftIcon={<FaMusic />}
         onClick={handlePlayClick}
       >

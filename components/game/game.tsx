@@ -107,6 +107,7 @@ const GameLayout: NextPage = () => {
         size="md"
         textAlign="center"
         data-testid="lyrics"
+        color="White"
         mb="5"
         opacity="0.7"
         dangerouslySetInnerHTML={{ __html: getLyrics(gameState.playlist[gameState.currentSong].lyrics!)}}

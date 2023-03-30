@@ -56,7 +56,7 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
         <Button 
           variant='solid' 
           w='100%' 
-          colorScheme={'brand'} 
+          colorScheme={'blackAlpha'} 
           leftIcon={<FaMusic />}
           onClick={handlePlayClick}
         >
