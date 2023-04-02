@@ -4,6 +4,7 @@ import SummaryLayout from '../../components/summary/summary';
 import Metadata from '../../components/meta/metadata';
 
 const Summary: NextPage = () => {
+
   return (
     <>
       <Metadata title={`Summary`} />

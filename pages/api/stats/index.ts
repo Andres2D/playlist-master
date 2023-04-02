@@ -1,4 +1,5 @@
 import Stats from '@/database/models/stats';
+import User from '@/database/models/user';
 import mongoConnection from '../../../database/connection';
 
 const handler = async(req: any, res: any) => {
@@ -8,13 +9,18 @@ const handler = async(req: any, res: any) => {
     }
 
     const { email, score, playlistId } = req.body;
-
     await mongoConnection();
 
-    const statSaved = await Stats.findOne({email, playlistId}).lean();
+    const user = await User.findOne({email});
+
+    if(!user) {
+      return res.status(400).json({ message: 'User does not exist'});
+    }
+
+    const statSaved = await Stats.findOne({user, playlistId}).lean();
     if(statSaved) {
       if(statSaved.besScore < score) {
-        await Stats.findOneAndUpdate({email, playlistId}, {...statSaved, bestScore: score}, {new: true});
+        await Stats.findOneAndUpdate({user, playlistId}, {...statSaved, bestScore: score}, {new: true});
         return res.status(200).json({ message: 'Score updated successfully'});
       }else {
         return res.status(200).json(
@@ -24,7 +30,7 @@ const handler = async(req: any, res: any) => {
         );
       }
     }else {
-      const newStats = new Stats({email, playlistId, bestScore: score});
+      const newStats = new Stats({user, playlistId, bestScore: score});
       await newStats.save();
       return res.status(201).json({ message: 'New stats saved successfully'});
     }
