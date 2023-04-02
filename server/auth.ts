@@ -1,4 +1,4 @@
-import mongoConnection from '../database/connetion';
+import mongoConnection from '../database/connection';
 import User from '../database/models/user';
 
 export const spotifyMongoAuth = async(access_token: string): Promise<boolean | null> => {

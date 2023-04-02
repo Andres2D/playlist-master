@@ -1,5 +1,5 @@
 import Access from '@/database/models/access';
-import mongoConnection from '../../../database/connetion';
+import mongoConnection from '../../../database/connection';
 
 const handler = async(req: any, res: any) => {
   try {
