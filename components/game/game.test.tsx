@@ -7,9 +7,25 @@ import { configureStore } from '@reduxjs/toolkit';
 import gameSliceMock from '../../store/game-slice.mock';
 import { gameMockEmptySlice } from '../../store/game-slice.mock';
 
+jest.mock("next-auth/react", () => {
+  const originalModule = jest.requireActual('next-auth/react');
+  const mockSession = {
+    expires: new Date(Date.now() + 2 * 86400).toISOString(),
+    user: { username: "test" }
+  };
+  return {
+    __esModule: true,
+    ...originalModule,
+    useSession: jest.fn(() => {
+      return {data: mockSession, status: 'authenticated'}  // return type is [] in v3 but changed to {} in v4
+    }),
+  };
+});
 
 jest.mock('next/router', () => ({
-  useRouter: jest.fn(),
+  useRouter: jest.fn().mockReturnValue({query: {
+    playlistId: 'test'
+  }}),
 }));
 
 const createTestStore = () => {

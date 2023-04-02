@@ -8,6 +8,7 @@ export const playlistsMock: PlaylistSelection[] = [
       'Recorre los kilómetros con estos cantables clásicos para el camino.',
     image: 'https://i.scdn.co/image/ab67706f00000003de9b4412850ba2a733d060d8',
     tracks: 100,
+    bestScore: 0
   },
   {
     id: '37i9dQZF1DX6xOPeSOGone',
@@ -15,6 +16,7 @@ export const playlistsMock: PlaylistSelection[] = [
     description: "It's like rock, but softer. Cover: Fleetwood Mac",
     image: 'https://i.scdn.co/image/ab67706f00000003c398315a76e5dd456cb0f516',
     tracks: 75,
+    bestScore: 0
   },
   {
     id: 'liked-songs',
@@ -22,6 +24,7 @@ export const playlistsMock: PlaylistSelection[] = [
     image: '/images/liked-songs-picture.png',
     name: 'Liked Songs',
     tracks: 20,
+    bestScore: 0
   },
   {
     id: '37i9dQZF1DZ06evO2449GK',
@@ -30,5 +33,6 @@ export const playlistsMock: PlaylistSelection[] = [
       'This is Alcolirykoz. The essential tracks, all in one playlist.',
     image: 'https://thisis-images.scdn.co/37i9dQZF1DZ06evO2449GK-large.jpg',
     tracks: 47,
+    bestScore: 0
   },
 ];
