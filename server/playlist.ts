@@ -1,8 +1,16 @@
-import { SpotifyPlaylist, PlaylistSelection, UserPlaylist, UserPlaylistItem } from '../interfaces/playlist';
+import { 
+  SpotifyPlaylist, 
+  PlaylistSelection, 
+  UserPlaylist, 
+  UserPlaylistItem 
+} from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
 import { MUSIXMATCH_COPYRIGHT, likedSongsPlaylist } from '../constants/game';
+import mongoConnection from '../database/connection';
+import Stats from '@/database/models/stats';
+import User from '@/database/models/user';
 
 interface PlaylistGame {
   playlistName: string;
@@ -11,12 +19,12 @@ interface PlaylistGame {
 
 export const getPlaylistGame = async(playlistId: string, accessToken: string, limit: number): Promise<null | PlaylistGame> => {
   try {
-    const isLikedSongs = playlistId === 'liked-songs';
+    const isLikedSongs = playlistId[0] === 'liked-songs';
     let playlist = await getPlaylist(accessToken, limit, isLikedSongs, playlistId);
     let playlistName = isLikedSongs 
       ? 'Liked Songs'
       : await getPlaylistDetails(playlistId, accessToken) || '';
-      
+
     if(!playlist) {
       return null;
     }
@@ -55,6 +63,7 @@ export const getPlaylistGame = async(playlistId: string, accessToken: string, li
     }
 
   } catch(err) {
+    console.log(err);
     return null;
   }
 };
@@ -72,6 +81,7 @@ export const getPlaylist =
         }
       }
     );
+
     if(!response.ok) {
       return null;
     }
@@ -93,7 +103,7 @@ export const getPlaylist =
   }
 };
 
-export const getUserPlaylist = async(accessToken: string, limit: number): Promise<null | PlaylistSelection[]> => {
+export const getUserPlaylist = async(accessToken: string, email: string, limit: number): Promise<null | PlaylistSelection[]> => {
   try {
     let playlists: PlaylistSelection[] = [];
     const response = await fetch(
@@ -115,13 +125,29 @@ export const getUserPlaylist = async(accessToken: string, limit: number): Promis
         name: playlist.name,
         description: playlist.description,
         image: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : '',
-        tracks: playlist.tracks.total
+        tracks: playlist.tracks.total,
+        bestScore: 0
       }
     });
-
-    playlists = playlists.filter(playlist => playlist.tracks > 0);
     playlists.push(likedSongsPlaylist);
 
+    playlists = await Promise.all(playlists.map(async playlist => {
+      let playlistScore = 0;
+      await mongoConnection();
+    
+      const user = await User.findOne({email});
+      if(user) {
+        const stats = await Stats.findOne({user: user, playlistId: playlist.id}).lean();
+        if(stats) {
+          playlistScore = stats.bestScore
+        }
+      }
+
+      return {...playlist, bestScore: playlistScore}
+    }));
+
+    playlists = playlists.filter(playlist => playlist.tracks > 0);
+    
     return playlists;
   }catch(err) {
     console.error(err);

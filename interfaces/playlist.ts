@@ -149,4 +149,5 @@ export interface PlaylistSelection {
   description: string;
   image: string;
   tracks: number;
+  bestScore: number;
 }
