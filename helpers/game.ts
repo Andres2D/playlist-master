@@ -1,3 +1,5 @@
+import { LyricGame } from '../interfaces/game';
+import { StatsSummary } from '../interfaces/stats';
 export const getRandomTracks = (trackNames: string[]): string[] => {
   const randomPositions: number[] = [];
 
@@ -15,4 +17,14 @@ export const getRandomTracks = (trackNames: string[]): string[] => {
     trackNames[second],
     trackNames[third]
   ];
+};
+
+export const getGameSummary = (playlist: LyricGame[]): StatsSummary => {
+  const correct = playlist.filter((track) => {
+    return track.state === 'correct';
+  }).length;
+  return {
+    correct,
+    wrong: playlist.length - correct
+  }
 };

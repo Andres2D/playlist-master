@@ -3,3 +3,8 @@ export interface Stats {
   user: string;
   besScore: number;
 };
+
+export interface StatsSummary {
+  correct: number;
+  wrong: number;
+}

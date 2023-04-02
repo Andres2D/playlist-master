@@ -5,6 +5,8 @@ import { NextPage } from 'next';
 import styles from './summary.module.scss';
 import { RootState } from '../../interfaces/state';
 import { gameSlicesActions, initialState } from '../../store/game-slice';
+import { useEffect } from 'react';
+import { getGameSummary } from '../../helpers/game';
 
 const SummaryLayout: NextPage = () => {
   const router = useRouter();
@@ -12,11 +14,13 @@ const SummaryLayout: NextPage = () => {
   const gameState = useSelector((state: RootState) => state.game);
   const totalQuestions = gameState.playlist.length;
 
-  const getCorrectAnswers = () => {
-    return gameState.playlist.filter((element) => {
-      return element.state === 'correct';
-    }).length;
-  };
+  useEffect(() => {
+    if(totalQuestions === 0) {
+      router.push('/game');
+    }
+  }, [totalQuestions, router]);
+
+  const { correct, wrong } = getGameSummary(gameState.playlist);
 
   const handleEndGame = () => {
     dispatch(gameSlicesActions.setGameState(initialState));
@@ -42,7 +46,7 @@ const SummaryLayout: NextPage = () => {
             flexDirection="column"
             alignItems="center"
           >
-            {getCorrectAnswers()}
+            {correct}
           </Heading>
         </Box>
         <Box flex="1" m={2} color="tomato">
@@ -53,7 +57,7 @@ const SummaryLayout: NextPage = () => {
             flexDirection="column"
             alignItems="center"
           >
-            {totalQuestions - getCorrectAnswers()}
+            {wrong}
           </Heading>
         </Box>
       </Flex>

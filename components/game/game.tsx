@@ -8,9 +8,13 @@ import AnswerButton from './answer-button/answer-button';
 import { RootState } from '../../interfaces/state';
 import { gameSlicesActions, initialState } from '../../store/game-slice';
 import { ButtonStates, QuestionState } from '../../types/game.types';
+import { useSession } from 'next-auth/react';
+import { getGameSummary } from '../../helpers/game';
 
 const GameLayout: NextPage = () => {
+  const session = useSession();
   const router = useRouter();
+  const { playlistId } = router.query;
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch();
   const [answerSelected, setAnswerSelected] = useState<string | undefined>(
@@ -33,8 +37,24 @@ const GameLayout: NextPage = () => {
     dispatch(gameSlicesActions.setQuestionState({ spotifyId: currentTrack.spotifyId!, questionState }));
   };
 
-  const handleNextTrack = () => {
+  const handleNextTrack = async () => {
     if (gameState.currentSong + 1 === gameState.playlist.length) {
+
+      const { correct, wrong } = getGameSummary(gameState.playlist);
+      const score = (correct / (correct + wrong)) * 100;
+
+      await fetch('/api/stats',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: session.data?.user.email,
+          playlistId: playlistId![0],
+          score
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       return router.push('/summary');
     }
     dispatch(gameSlicesActions.nextGame());
