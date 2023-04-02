@@ -21,7 +21,7 @@ const Playlist: NextPage<Props> = ({playlists}) => {
 
 export const getServerSideProps = async(context: any) => {
   const session = await getSession({req: context.req});
-  let playlists = await getUserPlaylist(session?.accessToken, Number(process.env.LIMIT_PLAYLISTS) || 20);
+  let playlists = await getUserPlaylist(session?.accessToken, session?.user.email!, Number(process.env.LIMIT_PLAYLISTS) || 20);
 
   if(!session || !playlists) {
     return {

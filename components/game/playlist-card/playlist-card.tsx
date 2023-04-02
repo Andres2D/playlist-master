@@ -5,7 +5,11 @@ import {
   Heading, 
   Text, 
   CardFooter, 
-  Button 
+  Button, 
+  StatHelpText,
+  StatArrow,
+  Stat,
+  StatLabel
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { FaMusic } from 'react-icons/fa';
@@ -32,6 +36,13 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
         <Text
           mt='2'
           dangerouslySetInnerHTML={{ __html: playlist.description}} />
+        <Stat>
+          <StatLabel fontWeight='extrabold' fontSize='xl'>Best score</StatLabel>
+          <StatHelpText fontWeight='extrabold' fontSize='large'>
+            <StatArrow type={playlist.bestScore > 50 ? 'increase' : 'decrease'} />
+              {playlist.bestScore} %
+          </StatHelpText>
+        </Stat>
       </CardBody>
       <CardFooter>
         <Button 

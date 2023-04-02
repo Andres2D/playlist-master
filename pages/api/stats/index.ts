@@ -19,7 +19,7 @@ const handler = async(req: any, res: any) => {
 
     const statSaved = await Stats.findOne({user, playlistId}).lean();
     if(statSaved) {
-      if(statSaved.besScore < score) {
+      if(statSaved.bestScore < score) {
         await Stats.findOneAndUpdate({user, playlistId}, {...statSaved, bestScore: score}, {new: true});
         return res.status(200).json({ message: 'Score updated successfully'});
       }else {

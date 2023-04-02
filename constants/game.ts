@@ -20,5 +20,6 @@ export const likedSongsPlaylist: PlaylistSelection = {
   description: 'Your liked songs',
   image: '/images/liked-songs-picture.png',
   name: 'Liked Songs',
-  tracks: 20
+  tracks: 20,
+  bestScore: 0
 }
