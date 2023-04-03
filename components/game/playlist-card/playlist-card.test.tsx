@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
 import PlaylistCard from './playlist-card';
 import { playlistsMock } from '../../../mock/playlist.mock';
+import { createTestStore } from '../../../store/fake-store';
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
@@ -10,8 +12,17 @@ jest.mock('next/router', () => ({
 const mockPlaylistItem = playlistsMock[0];
 
 describe('PlaylistCard', () => {
+  let fakeStore: any;
   beforeEach(() => {
-    render(<PlaylistCard playlist={mockPlaylistItem} key={mockPlaylistItem.id} />);
+    fakeStore = createTestStore();
+  })
+
+  beforeEach(() => {
+    render(
+      <Provider store={fakeStore}>
+        <PlaylistCard playlist={mockPlaylistItem} key={mockPlaylistItem.id} />
+      </Provider>
+    );
   });
 
   it('Should render all the playlist data', () => {

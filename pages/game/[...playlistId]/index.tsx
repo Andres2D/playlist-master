@@ -8,6 +8,7 @@ import { gameSlicesActions } from '../../../store/game-slice';
 import { LyricGame } from '../../../interfaces/game';
 import Metadata from '../../../components/meta/metadata';
 import { RootState } from '../../../interfaces/state';
+import { loaderSliceActions } from '../../../store/loader-slice';
 
 interface Props {
   playlistName: string;
@@ -21,6 +22,7 @@ const Auth: NextPage<Props> = ({playlist, playlistName}) => {
 
   useEffect(() => {
     dispatch(gameSlicesActions.setGameState({playlist, playlistName, currentSong: 0}));
+    dispatch(loaderSliceActions.setLoaderState({loading: false}));
   }, [dispatch, playlist, playlistName]);
   
   return (

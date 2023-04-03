@@ -5,19 +5,23 @@ import styles from './loader.module.scss';
 
 interface Props {
   text?: string;
-  loading?: boolean;
 }
 
 const Loader: NextPage<Props> = ({
   text = 'Playlist Master',
-  loading = false,
 }) => {
   return (
     <div className={styles.loader}>
-      <Heading textAlign="right" size="xl" mb={2} color="#36d7b7">
+      <Heading 
+        textAlign="right"
+        size="xl" 
+        mb={2} 
+        color={'brand.500'}
+        zIndex={1}
+      >
         {text}
       </Heading>
-      <ScaleLoader color="#36d7b7" loading={loading} />
+      <ScaleLoader className={styles.loaderIcon} color="#42D760" loading={true} />
     </div>
   );
 };

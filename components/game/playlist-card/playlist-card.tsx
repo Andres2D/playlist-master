@@ -14,8 +14,10 @@ import {
 import { useRouter } from 'next/router';
 import { FaMusic } from 'react-icons/fa';
 import { NextPage } from 'next';
+import { useDispatch } from 'react-redux';
 import styles from './playlist-card.module.scss';
 import { PlaylistSelection } from '../../../interfaces/playlist';
+import { loaderSliceActions } from '../../../store/loader-slice';
 
 interface Props {
   playlist: PlaylistSelection
@@ -23,6 +25,12 @@ interface Props {
 
 const PlaylistCard: NextPage<Props> = ({playlist}) => {
   const route = useRouter();
+  const dispatch = useDispatch();
+  
+  const handlePlayClick = () => {
+    dispatch(loaderSliceActions.setLoaderState({loading: true}));
+    route.push(`game/${playlist.id}`);
+  };
 
   return (
     <Card maxW='sm' colorScheme={'facebook'}>
@@ -50,7 +58,7 @@ const PlaylistCard: NextPage<Props> = ({playlist}) => {
           w='100%' 
           colorScheme={'brand'} 
           leftIcon={<FaMusic />}
-          onClick={() => route.push(`game/${playlist.id}`)}
+          onClick={handlePlayClick}
         >
           Play
         </Button>

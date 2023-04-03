@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
 import ContentWrapper from './content-wrapper';
+import { createTestStore } from '../../store/fake-store';
 
 jest.mock("next-auth/react", () => {
   const originalModule = jest.requireActual('next-auth/react');
@@ -21,13 +23,20 @@ jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-
 describe('ContentWrapper', () => {
+
+  let fakeStore: any;
+  beforeEach(() => {
+    fakeStore = createTestStore();
+  })
+
   beforeEach(() => {
     render(
-      <ContentWrapper>
-        <p>test</p>
-      </ContentWrapper>
+      <Provider store={fakeStore}>
+        <ContentWrapper>
+          <p>test</p>
+        </ContentWrapper>
+      </Provider>
     )
   });
 

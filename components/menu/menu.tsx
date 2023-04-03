@@ -1,11 +1,19 @@
 import { Button, Heading, Image } from '@chakra-ui/react';
 import { FaMusic } from 'react-icons/fa';
 import { NextPage } from 'next';
-import styles from './menu.module.scss';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import styles from './menu.module.scss';
+import { loaderSliceActions } from '../../store/loader-slice';
 
 const MenuLayout: NextPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handlePlayClick = () => {
+    dispatch(loaderSliceActions.setLoaderState({loading: true}));
+    router.push('/game');
+  };
 
   return (
     <div className={styles.home}>
@@ -22,7 +30,7 @@ const MenuLayout: NextPage = () => {
         className={styles.btnPlay}
         colorScheme="play"
         leftIcon={<FaMusic />}
-        onClick={() => router.push('/game')}
+        onClick={handlePlayClick}
       >
         Play
       </Button>

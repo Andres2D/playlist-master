@@ -2,12 +2,13 @@ import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
+import { useEffect } from 'react';
 import styles from './summary.module.scss';
 import { RootState } from '../../interfaces/state';
 import { gameSlicesActions, initialState } from '../../store/game-slice';
-import { useEffect } from 'react';
 import { getGameSummary } from '../../helpers/game';
-
+import { loaderSliceActions } from '../../store/loader-slice';
+ 
 const SummaryLayout: NextPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -16,13 +17,17 @@ const SummaryLayout: NextPage = () => {
 
   useEffect(() => {
     if(totalQuestions === 0) {
+      dispatch(loaderSliceActions.setLoaderState({loading: true}));
       router.push('/game');
+    }else {
+      dispatch(loaderSliceActions.setLoaderState({loading: false}));
     }
-  }, [totalQuestions, router]);
-
+  }, [totalQuestions, router, dispatch]);
+  
   const { correct, wrong } = getGameSummary(gameState.playlist);
-
+  
   const handleEndGame = () => {
+    dispatch(loaderSliceActions.setLoaderState({loading: true}));
     dispatch(gameSlicesActions.setGameState(initialState));
     router.push('/game');
   };
