@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react"
 import theme from '../styles/theme.conf';
 import ContentWrapper from '../components/layout/content-wrapper';
 import store from '../store/index';
+import Loader from '../components/loader/loader';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
