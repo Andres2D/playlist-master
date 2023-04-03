@@ -17,6 +17,8 @@ import { Button } from '@chakra-ui/react';
 import { signOut } from 'next-auth/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { loaderSliceActions } from '@/store/loader-slice';
 import styles from './navbar.module.scss';
 
 interface Props {
@@ -26,10 +28,12 @@ interface Props {
 
 const Navbar: NextPage<Props> = ({userName, image}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handlePlayAction = () => {
     if(router.pathname === '/menu') {
+      dispatch(loaderSliceActions.setLoaderState({loading: true}));
       router.push('/game');
     }
     onClose();

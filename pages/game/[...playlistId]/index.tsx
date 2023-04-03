@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
+import { loaderSliceActions } from '@/store/loader-slice';
 import GameLayout from '../../../components/game/game';
 import { getPlaylistGame } from '../../../server/playlist';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,7 @@ const Auth: NextPage<Props> = ({playlist, playlistName}) => {
 
   useEffect(() => {
     dispatch(gameSlicesActions.setGameState({playlist, playlistName, currentSong: 0}));
+    dispatch(loaderSliceActions.setLoaderState({loading: false}));
   }, [dispatch, playlist, playlistName]);
   
   return (

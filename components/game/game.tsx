@@ -10,6 +10,7 @@ import { gameSlicesActions, initialState } from '../../store/game-slice';
 import { ButtonStates, QuestionState } from '../../types/game.types';
 import { useSession } from 'next-auth/react';
 import { getGameSummary } from '../../helpers/game';
+import { loaderSliceActions } from '../../store/loader-slice';
 
 const GameLayout: NextPage = () => {
   const session = useSession();
@@ -21,15 +22,12 @@ const GameLayout: NextPage = () => {
     undefined
   );
 
-  if (gameState.playlist.length === 0) {
-    return (
-      <Heading>
-        Loading ...
-      </Heading>
-    )
-  }
-
   const currentTrack = gameState.playlist[gameState.currentSong];
+
+  if (gameState.playlist.length === 0) {
+    dispatch(loaderSliceActions.setLoaderState({loading: true}));
+    return <></>;
+  }
 
   const handleAnswerSelection = (answer: string) => {
     const questionState: QuestionState = answer === currentTrack.name ? 'correct' : 'wrong'; 
@@ -38,6 +36,7 @@ const GameLayout: NextPage = () => {
   };
 
   const handleNextTrack = async () => {
+    dispatch(loaderSliceActions.setLoaderState({loading: true}));
     if (gameState.currentSong + 1 === gameState.playlist.length) {
 
       const { correct, wrong } = getGameSummary(gameState.playlist);
@@ -57,6 +56,7 @@ const GameLayout: NextPage = () => {
       });
       return router.push('/summary');
     }
+    dispatch(loaderSliceActions.setLoaderState({loading: false}));
     dispatch(gameSlicesActions.nextGame());
     setAnswerSelected(undefined);
   };
