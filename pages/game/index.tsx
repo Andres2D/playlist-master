@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
-import { loaderSliceActions } from '@/store/loader-slice';
 import Metadata from '../../components/meta/metadata';
 import { getUserPlaylist } from '../../server/playlist';
 import { PlaylistSelection } from '../../interfaces/playlist';
 import PlaylistLayout from '../../components/game/playlists';
+import { loaderSliceActions } from '../../store/loader-slice';
 
 interface Props {
   playlists: PlaylistSelection[]

@@ -1,7 +1,9 @@
 import Navbar from './navbar';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
+import { createTestStore } from '../../store/fake-store';
 
 const props = {
   userName: 'test',
@@ -16,11 +18,17 @@ jest.mock('next/router', () => ({
 
 
 describe('Navbar', () => {
+  let fakeStore: any;
+  beforeEach(() => {
+    fakeStore = createTestStore();
+  })
   beforeEach(() => {
     render(
-      <ChakraProvider>
-        <Navbar userName={props.userName} image={props.image} />
-      </ChakraProvider>
+      <Provider store={fakeStore}>
+        <ChakraProvider>
+          <Navbar userName={props.userName} image={props.image} />
+        </ChakraProvider>
+      </Provider>
       );
     });
 

@@ -18,8 +18,8 @@ import { signOut } from 'next-auth/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { loaderSliceActions } from '@/store/loader-slice';
 import styles from './navbar.module.scss';
+import { loaderSliceActions } from '../../store/loader-slice';
 
 interface Props {
   userName: string;

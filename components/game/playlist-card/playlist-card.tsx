@@ -15,9 +15,9 @@ import { useRouter } from 'next/router';
 import { FaMusic } from 'react-icons/fa';
 import { NextPage } from 'next';
 import { useDispatch } from 'react-redux';
-import { loaderSliceActions } from '@/store/loader-slice';
 import styles from './playlist-card.module.scss';
 import { PlaylistSelection } from '../../../interfaces/playlist';
+import { loaderSliceActions } from '../../../store/loader-slice';
 
 interface Props {
   playlist: PlaylistSelection

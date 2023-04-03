@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { loaderSliceActions } from '@/store/loader-slice';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
 import styles from './summary.module.scss';
 import { RootState } from '../../interfaces/state';
 import { gameSlicesActions, initialState } from '../../store/game-slice';
 import { getGameSummary } from '../../helpers/game';
+import { loaderSliceActions } from '../../store/loader-slice';
  
 const SummaryLayout: NextPage = () => {
   const router = useRouter();

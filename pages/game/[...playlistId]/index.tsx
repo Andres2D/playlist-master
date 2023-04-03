@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { getSession } from 'next-auth/react';
-import { loaderSliceActions } from '@/store/loader-slice';
 import GameLayout from '../../../components/game/game';
 import { getPlaylistGame } from '../../../server/playlist';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import { gameSlicesActions } from '../../../store/game-slice';
 import { LyricGame } from '../../../interfaces/game';
 import Metadata from '../../../components/meta/metadata';
 import { RootState } from '../../../interfaces/state';
+import { loaderSliceActions } from '../../../store/loader-slice';
 
 interface Props {
   playlistName: string;
