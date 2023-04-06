@@ -7,4 +7,5 @@ export interface Stats {
 export interface StatsSummary {
   correct: number;
   wrong: number;
+  percentage: number;
 }
