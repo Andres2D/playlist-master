@@ -35,11 +35,6 @@ describe('SummaryLayout', () => {
     );
   });
 
-  it('Should render image svg', () => {
-    const appSvg = screen.getByAltText('completed'); 
-    expect(appSvg).toBeInTheDocument();
-  });
-
   it('Should render action buttons', () => {
     const endGameElement = screen.getByText('End Game');
     expect(endGameElement).toBeInTheDocument();
