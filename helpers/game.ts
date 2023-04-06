@@ -25,6 +25,7 @@ export const getGameSummary = (playlist: LyricGame[]): StatsSummary => {
   }).length;
   return {
     correct,
-    wrong: playlist.length - correct
+    wrong: playlist.length - correct,
+    percentage: Math.floor((correct / playlist.length) * 100) 
   }
 };

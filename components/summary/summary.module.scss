@@ -13,7 +13,24 @@
     width: 250px;
   }
   
-  .btnEndGame{
-    background-color: $darkTeal;
+  .actions {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .btnEndGame{
+      background-color: $darkTeal;
+    }
+
+    .link {
+      &:hover {
+        text-decoration: none;
+      }
+
+      .btnTwitter {
+        background-color: $twitter;
+      }
+    }
   }
 }
