@@ -22,8 +22,7 @@ const AuthLayout: NextPage = () => {
       <ButtonGroup>
         <Button
           size="lg"
-          colorScheme="spotify"
-          className={styles.btnSignIn}
+          colorScheme='blackAlpha'
           leftIcon={<FaSpotify />}
           onClick={() => signIn('spotify_user')}
         >

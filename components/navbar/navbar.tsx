@@ -68,7 +68,7 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
         onClose={onClose}
       >
         <DrawerOverlay />
-        <DrawerContent backgroundColor={bgNavbar}>
+        <DrawerContent backgroundColor={bgNavbar()}>
           <DrawerCloseButton />
           <DrawerBody 
             display='flex' 

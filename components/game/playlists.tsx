@@ -1,8 +1,8 @@
+import { Heading } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import styles from './playlists.module.scss';
 import { PlaylistSelection } from '../../interfaces/playlist';
 import PlaylistCard from '../game/playlist-card/playlist-card';
-import { Heading } from '@chakra-ui/react';
+import styles from './playlists.module.scss';
 
 interface Props {
   playlists: PlaylistSelection[];
