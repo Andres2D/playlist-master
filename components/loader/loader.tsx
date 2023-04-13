@@ -16,7 +16,7 @@ const Loader: NextPage<Props> = ({
         textAlign="right"
         size="xl" 
         mb={2} 
-        color={'brand.500'}
+        color={'White'}
         zIndex={1}
       >
         {text}
