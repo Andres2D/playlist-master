@@ -9,6 +9,7 @@ import { LyricGame } from '../../../interfaces/game';
 import Metadata from '../../../components/meta/metadata';
 import { RootState } from '../../../interfaces/state';
 import { loaderSliceActions } from '../../../store/loader-slice';
+import { sortArrayRandomly } from '../../../helpers/game';
 
 interface Props {
   playlistName: string;
@@ -46,7 +47,7 @@ export const getServerSideProps = async(context: any) => {
     }
   }
   
-  const playlist = playlistGame.playlist.sort(() => 0.5 - Math.random());
+  const playlist = sortArrayRandomly(playlistGame.playlist);
   
   return {
     props: { 

@@ -6,6 +6,7 @@ import { getUserPlaylist } from '../../server/playlist';
 import { PlaylistSelection } from '../../interfaces/playlist';
 import PlaylistLayout from '../../components/game/playlists';
 import { loaderSliceActions } from '../../store/loader-slice';
+import { sortArrayRandomly } from '../../helpers/game';
 
 interface Props {
   playlists: PlaylistSelection[]
@@ -37,7 +38,7 @@ export const getServerSideProps = async(context: any) => {
     }
   }
 
-  playlists = playlists.sort(() => 0.5 - Math.random());
+  playlists = sortArrayRandomly(playlists);
 
   return {
     props: { 
