@@ -97,16 +97,17 @@ const GameLayout: NextPage = () => {
 
   return (
     <>
-      <Heading textAlign="right" size="xl" mb={2}>
+      <Heading textAlign="right" size="xl" mb={2} color="White">
         {gameState.playlistName}
       </Heading>
-      <Heading textAlign="right" size="xl" mb={2}>
+      <Heading textAlign="right" size="xl" mb={2} color="White">
         {`${gameState.currentSong + 1}/${gameState.playlist.length}`}
       </Heading>
       <Heading
         size="md"
         textAlign="center"
         data-testid="lyrics"
+        color="White"
         mb="5"
         opacity="0.7"
         dangerouslySetInnerHTML={{ __html: getLyrics(gameState.playlist[gameState.currentSong].lyrics!)}}

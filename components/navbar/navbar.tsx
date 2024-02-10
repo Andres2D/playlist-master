@@ -6,7 +6,8 @@ import {
   DrawerCloseButton, 
   DrawerBody,
   useDisclosure, 
-  Heading
+  Heading,
+  useColorMode
 } from '@chakra-ui/react';
 import { 
   TriangleDownIcon, 
@@ -30,6 +31,7 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { colorMode, toggleColorMode } = useColorMode()
 
   const handlePlayAction = () => {
     if(router.pathname === '/menu') {
@@ -44,13 +46,17 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
     onClose();
   };
 
+  const bgNavbar = () => {
+    return colorMode === 'light' ? 'teal' : 'gray.900';
+  }
+
   return (
     <>
       <nav className={styles.navigator}>
         <Avatar 
           className={styles.profile}
           name={userName}
-          borderColor='gray'
+          borderColor='teal'
           size='lg'
           src={image} 
           onClick={onOpen} 
@@ -62,7 +68,7 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
         onClose={onClose}
       >
         <DrawerOverlay />
-        <DrawerContent background='teal'>
+        <DrawerContent backgroundColor={bgNavbar()}>
           <DrawerCloseButton />
           <DrawerBody 
             display='flex' 
@@ -74,18 +80,18 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
               mb='10'
               className={styles.profile}
               name={userName}
-              borderColor='blackAlpha'
+              borderColor='teal'
               size='xl'
               src={image}
             />
-            <Heading color='white' textAlign='center' mb='5' size='md'>Hola</Heading>
-            <Heading color='ghostwhite' textAlign='center' mb='10' size='md'>{userName}</Heading>
+            <Heading color='White' textAlign='center' mb='5' size='md'>Hola</Heading>
+            <Heading color='White' textAlign='center' mb='10' size='md'>{userName}</Heading>
             <Button 
               size='lg' 
               className={styles.actions} 
               rightIcon={<TriangleDownIcon 
               className={styles.play} />} 
-              colorScheme='brand'
+              colorScheme='blackAlpha'
               onClick={handlePlayAction}
               variant='solid'
             >
@@ -101,10 +107,19 @@ const Navbar: NextPage<Props> = ({userName, image}) => {
             >
               Menu
             </Button>
+            <Button
+              onClick={toggleColorMode}
+              colorScheme='blackAlpha'
+              className={styles.actions} 
+              rightIcon={<MoonIcon />} 
+              size='lg'
+              variant='solid'
+              >
+              Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+            </Button>
             <Button 
               size='lg' 
               className={styles.actions} 
-              rightIcon={<MoonIcon />} 
               colorScheme='red' 
               variant='solid'
               onClick={() => signOut()}

@@ -15,13 +15,9 @@
   
   .actions {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-
-    .btnEndGame{
-      background-color: $darkTeal;
-    }
 
     .link {
       &:hover {

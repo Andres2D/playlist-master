@@ -1,13 +1,35 @@
-import { Button, Image, ButtonGroup } from '@chakra-ui/react';
-import { FaSpotify } from 'react-icons/fa';
+import { Button, ButtonGroup, useColorMode, Image } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
-import styles from './auth.module.scss';
+import { FaSpotify } from 'react-icons/fa';
 import RequestAccess from '../request-access/request-access';
+import styles from './auth.module.scss';
 
 const AuthLayout: NextPage = () => {
+  const { colorMode, toggleColorMode } = useColorMode()
+
   return (
+    <div>
+
+    <div className={styles.header}>
+      <button type="button"
+      onClick={toggleColorMode}>
+        {colorMode === 'dark' &&
+          <Image
+          src="/images/dark-mode-icon.svg"
+          alt="dark-mode-icon"
+        />
+        }
+        {colorMode === 'light' &&
+        <Image
+        src="/images/light-mode-icon.svg"
+        alt="light-mode-icon"
+      />
+        }
+        </button>
+    </div>
     <div className={styles.home}>
+      
       <Image
         className={styles.logo}
         src="/images/connection.svg"
@@ -22,8 +44,7 @@ const AuthLayout: NextPage = () => {
       <ButtonGroup>
         <Button
           size="lg"
-          colorScheme="spotify"
-          className={styles.btnSignIn}
+          colorScheme='blackAlpha'
           leftIcon={<FaSpotify />}
           onClick={() => signIn('spotify_user')}
         >
@@ -31,6 +52,7 @@ const AuthLayout: NextPage = () => {
         </Button>
       </ButtonGroup>
       <RequestAccess />
+    </div>
     </div>
   );
 };
