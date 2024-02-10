@@ -21,7 +21,7 @@ import { RootState } from '../../interfaces/state';
 import { gameSlicesActions, initialState } from '../../store/game-slice';
 import { getGameSummary } from '../../helpers/game';
 import { loaderSliceActions } from '../../store/loader-slice';
-import TwitterIcon from '../../icons/twitter';
+import XIcon from '../../icons/x';
 import { getTweetUrl } from './constants';
 
 const SummaryLayout: NextPage = () => {
@@ -125,7 +125,7 @@ const SummaryLayout: NextPage = () => {
           <Button
             className={styles.btnTwitter}
             size="lg"
-            rightIcon={<TwitterIcon />}
+            rightIcon={<XIcon />}
             m={2}
             color="White"
           >

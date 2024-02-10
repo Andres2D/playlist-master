@@ -143,7 +143,7 @@ export const getUserPlaylist = async(accessToken: string, email: string, limit: 
         }
       }
 
-      return {...playlist, bestScore: playlistScore}
+      return {...playlist, bestScore: Math.floor(playlistScore)}
     }));
 
     playlists = playlists.filter(playlist => playlist.tracks > 0);
