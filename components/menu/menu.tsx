@@ -9,6 +9,7 @@ import { loaderSliceActions } from '../../store/loader-slice';
 const MenuLayout: NextPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  dispatch(loaderSliceActions.setLoaderState({loading: false}));
 
   const handlePlayClick = () => {
     dispatch(loaderSliceActions.setLoaderState({loading: true}));

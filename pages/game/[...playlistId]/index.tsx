@@ -41,7 +41,7 @@ export const getServerSideProps = async(context: any) => {
   if(!session || !playlistGame || !playlistGame.playlist || playlistGame.playlist.length === 0) {
     return {
       redirect: {
-        destination: '/auth',
+        destination: '/menu',
         permanent: false
       }
     }
