@@ -1,13 +1,13 @@
-import { 
-  SpotifyPlaylist, 
-  PlaylistSelection, 
-  UserPlaylist, 
-  UserPlaylistItem 
+import {
+  SpotifyPlaylist,
+  PlaylistSelection,
+  UserPlaylist,
+  UserPlaylistItem
 } from '../interfaces/playlist';
 import { LyricGame } from '../interfaces/game';
 import { getLyricsByISRC } from './lyrics';
 import { getRandomTracks } from '../helpers/game';
-import { MUSIXMATCH_COPYRIGHT, likedSongsPlaylist } from '../constants/game';
+import { MUSIXMATCH_COPYRIGHT, likedSongsPlaylist, DEFAULT_ANSWERS_LIST_LIMIT, defaultAnswersSongs } from '../constants/game';
 import mongoConnection from '../database/connection';
 import Stats from '@/database/models/stats';
 import User from '@/database/models/user';
@@ -19,38 +19,29 @@ interface PlaylistGame {
 
 export const getPlaylistGame = async(playlistId: string, accessToken: string, limit: number): Promise<null | PlaylistGame> => {
   try {
+    let answersListSelection: string[] = [];
     const isLikedSongs = playlistId[0] === 'liked-songs';
     let playlist = await getPlaylist(accessToken, limit, isLikedSongs, playlistId);
-    let playlistName = isLikedSongs 
+    let playlistName = isLikedSongs
       ? 'Liked Songs'
       : await getPlaylistDetails(playlistId, accessToken) || '';
+
+    const likedSongsList = await getPlaylist(accessToken, DEFAULT_ANSWERS_LIST_LIMIT, true);
+    const likedSongsListMapped = await mapPlaylistResult(likedSongsList || []) || null;
+
+    answersListSelection = likedSongsListMapped && likedSongsListMapped?.length < 30
+      ? defaultAnswersSongs
+      : likedSongsListMapped?.map(song => song.name || '') || [];
+
+    playlist = await mapPlaylistResult(playlist || []);
 
     if(!playlist) {
       return null;
     }
-    
-    playlist = await Promise.all(playlist.map(async track => {
-      const trackDetails = await getLyricsByISRC(track.isrcId!);
-      if(!trackDetails) {
-        return {
-          ...track
-        };
-      }
-
-      const lyricsReplaced = trackDetails?.lyrics?.replace(MUSIXMATCH_COPYRIGHT, '').replace(/\n/gm, '</br>');
-      
-      return {
-        ...track,
-        musxmatchId: trackDetails?.musxmatchId,
-        lyrics: lyricsReplaced,
-        state: 'unknown'
-      };
-    }));
 
     playlist = playlist.map(track => {
-      const answers = 
-        [...getRandomTracks(playlist!.map(t => t.name!).filter(t => t !== track.name!)), track.name!]
-        .sort(() => 0.5 - Math.random());
+      const answers: any = [...getRandomTracks(answersListSelection.filter(song => song !== track.name!)), track.name!]
+      .sort(() => 0.5 - Math.random());
       return {
         ...track,
         answers,
@@ -68,7 +59,7 @@ export const getPlaylistGame = async(playlistId: string, accessToken: string, li
   }
 };
 
-export const getPlaylist = 
+export const getPlaylist =
   async(accessToken: string, limit: number = 5, isLikedSongs: boolean = false, playlistId: string = ''): Promise<LyricGame[] | null> => {
   try {
     let tracks: LyricGame[] = [];
@@ -94,7 +85,7 @@ export const getPlaylist =
         spotifyId: item.track.id,
       }
     });
-    
+
     return tracks;
 
   } catch(err) {
@@ -118,7 +109,7 @@ export const getUserPlaylist = async(accessToken: string, email: string, limit: 
       return null;
     }
     const { items } = await response.json() as UserPlaylist;
-    
+
     playlists = items.map(playlist => {
       return {
         id: playlist.id,
@@ -134,7 +125,7 @@ export const getUserPlaylist = async(accessToken: string, email: string, limit: 
     playlists = await Promise.all(playlists.map(async playlist => {
       let playlistScore = 0;
       await mongoConnection();
-    
+
       const user = await User.findOne({email});
       if(user) {
         const stats = await Stats.findOne({user: user, playlistId: playlist.id}).lean();
@@ -147,7 +138,7 @@ export const getUserPlaylist = async(accessToken: string, email: string, limit: 
     }));
 
     playlists = playlists.filter(playlist => playlist.tracks > 0);
-    
+
     return playlists;
   }catch(err) {
     console.error(err);
@@ -176,5 +167,30 @@ const getPlaylistDetails = async(playlistId: string, accessToken: string): Promi
   } catch(err) {
     console.log(err);
     return null;
+  }
+};
+
+const mapPlaylistResult = (playlist: LyricGame[]): Promise<LyricGame[] | null> => {
+  try {
+      return Promise.all(playlist.map(async track => {
+        const trackDetails = await getLyricsByISRC(track.isrcId!);
+        if(!trackDetails) {
+          return {
+            ...track
+          };
+        }
+    
+        const lyricsReplaced = trackDetails?.lyrics?.replace(MUSIXMATCH_COPYRIGHT, '').replace(/\n/gm, '</br>');
+
+        return {
+          ...track,
+          musxmatchId: trackDetails?.musxmatchId,
+          lyrics: lyricsReplaced,
+          state: 'unknown'
+        };
+      }));
+  }catch (err: any) {
+    console.log('Error: ', err);
+    return Promise.resolve(null);
   }
 };

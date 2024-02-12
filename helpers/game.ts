@@ -1,5 +1,6 @@
 import { LyricGame } from '../interfaces/game';
 import { StatsSummary } from '../interfaces/stats';
+
 export const getRandomTracks = (trackNames: string[]): string[] => {
   const randomPositions: number[] = [];
 
