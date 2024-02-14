@@ -74,9 +74,9 @@ const RequestAccess: NextPage = () => {
       >
         {`Don't have access?, Click here.`}
       </Link>
-      <Modal colorScheme={'blackAlpha'} isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent color="White">
+        <ModalContent>
           <ModalHeader>Request Access</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -95,10 +95,19 @@ const RequestAccess: NextPage = () => {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
+            <Button 
+              colorScheme="red" 
+              mr={3} 
+              onClick={onClose}
+            >
               Cancel
             </Button>
-            <Button colorScheme="brand" isDisabled={isError || isLoading} onClick={handleRequestAccess} color="White">Request</Button>
+            <Button 
+              isDisabled={isError || isLoading} 
+              onClick={handleRequestAccess}
+            >
+              Request
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
